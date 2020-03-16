@@ -1698,7 +1698,7 @@
       </graphics>
     </body>
     <body>
-      <bodyname>Fusee_ARG</bodyname>
+      <bodyname>Fusee_ARG_test</bodyname>
       <parent>
         <bodyname>Bras_ARG</bodyname>
         <pointname>Point_0</pointname>
@@ -1840,7 +1840,7 @@
     <body>
       <bodyname>Roue_ARG</bodyname>
       <parent>
-        <bodyname>Fusee_ARG</bodyname>
+        <bodyname>Fusee_ARG_test</bodyname>
         <pointname>Point_3</pointname>
       </parent>
       <joint>
@@ -1985,7 +1985,7 @@
     <rod>
       <name>Cut_2</name>
       <endpoint1>
-        <bodyname>Fusee_ARG</bodyname>
+        <bodyname>Fusee_ARG_test</bodyname>
         <pointname>Point_0</pointname>
       </endpoint1>
       <endpoint2>
@@ -2000,7 +2000,7 @@
     <rod>
       <name>Cut_3</name>
       <endpoint1>
-        <bodyname>Fusee_ARG</bodyname>
+        <bodyname>Fusee_ARG_test</bodyname>
         <pointname>Point_1</pointname>
       </endpoint1>
       <endpoint2>
@@ -2060,7 +2060,7 @@
     <link>
       <name>Link_ARG</name>
       <endpoint1>
-        <bodyname>Fusee_ARG</bodyname>
+        <bodyname>Fusee_ARG_test</bodyname>
         <pointname>Point_2</pointname>
       </endpoint1>
       <endpoint2>
