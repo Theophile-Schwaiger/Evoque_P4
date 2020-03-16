@@ -9,7 +9,7 @@
 
 def user_cons_hJ(h,Jac,mbs,tsim):
     """ Function that compute the Jacobian and the h vector for the user constraints
-    
+    test visio
     :param h: the constraint vector to return
     :param Jac: the jacobian matrix to return
     :param mbs: the Data structure

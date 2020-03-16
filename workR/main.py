@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+test visioconférence
 
     test de commit et pull sur la master branch
 
