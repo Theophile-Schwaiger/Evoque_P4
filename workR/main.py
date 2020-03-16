@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    
+
+    test de commit et pull sur la master branch
+
        Universite catholique de Louvain
        CEREM : Centre for research in mechatronics
        http://www.robotran.be  
