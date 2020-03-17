@@ -1,5 +1,5 @@
 import numpy as np
-#oui
+
 F = np.zeros((4,4))
 F2 = np.zeros(16,dtype = 'float')
 

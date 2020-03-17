@@ -22,20 +22,20 @@ def user_DrivenJoints(mbs,tsim):
     # mbs.q[5]   = mbs.q0[5]  + mbs.qd0[5]*tsim + 0.5 * mbs.qdd[5]*tsim*tsim
 
     mbs.qdd[10] = 0
-    mbs.qd[10]  = 2.0
-    mbs.q[10]   = 2.0 * tsim
+    mbs.qd[10]  = 1.0
+    mbs.q[10]   = 1.0 * tsim
      
     mbs.qdd[18] = 0
-    mbs.qd[18]  = 2.0
-    mbs.q[18]   = 2.0 * tsim
+    mbs.qd[18]  = 1.0
+    mbs.q[18]   = 1.0 * tsim
    
     mbs.qdd[14] = 0
-    mbs.qd[14]  = 2.0
-    mbs.q[14]   = 2.0 * tsim
+    mbs.qd[14]  = 1.0
+    mbs.q[14]   = 1.0 * tsim
    
     mbs.qdd[22] = 0
-    mbs.qd[22]  = 2.0
-    mbs.q[22]   = 2.0 * tsim
+    mbs.qd[22]  = 1.0
+    mbs.q[22]   = 1.0 * tsim
    
 
    

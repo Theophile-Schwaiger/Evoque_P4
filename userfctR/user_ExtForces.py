@@ -55,9 +55,24 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
     My=0.0
     Mz=0.0
 
+    
     if ixF == mbs.extforce_id["ExtForce_0"] or ixF == mbs.extforce_id["ExtForce_1"] or ixF == mbs.extforce_id["ExtForce_2"] or ixF == mbs.extforce_id["ExtForce_3"]:
-        pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(PxF,RxF,VxF,OMxF,R0)
+        Pw = PxF
+        Pw[0] = 3.0
+
+        Vw = VxF
+        Vw[0] = 3.0
+
+        OMw = OMxF
+        OMw[0] = 3.0
+
+        pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(Pw,RxF,Vw,OMw,R0)
         e = PxF[3] - (RxF[2,2]*R0)
+        print(PxF)
+
+        print(VxF)
+        print(OMxF)
+
         print(angslip)
         print(angcamb)
         print(slip)
@@ -93,7 +108,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
                 Fz = 0
 
             Fwhl = np.zeros(4) 
-            #Fwhl[3] = Fz
+            Fwhl[3] = Fz
             Mwhl = np.zeros(4)
                 
             mbs_tgc.tgc_bakker_contact(Fwhl,Mwhl,angslip,angcamb,slip)
