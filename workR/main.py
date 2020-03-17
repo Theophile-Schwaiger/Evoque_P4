@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 test test visioconférence
+test RObin
 
     test de commit et pull sur la master branch
 
