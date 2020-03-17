@@ -11,18 +11,18 @@
 #	1348 Louvain-la-Neuve 
 #	http://www.robotran.be// 
 #
-#	==> Generation Date : Mon Mar 16 18:21:54 2020
+#	==> Generation Date : Mon Mar 16 22:45:10 2020
 #
 #	==> Project name : Complete_Vehicle_Test
 #	==> using XML input file 
 #
-#	==> Number of joints : 18
+#	==> Number of joints : 22
 #
 #	==> Function : F18 : Constraints Quadratic Velocity Terms (Jdqd)
 #	==> Flops complexity : 104
 #
 #	==> Generation Time :  0.000 seconds
-#	==> Post-Processing :  0.010 seconds
+#	==> Post-Processing :  0.000 seconds
 #
 #-------------------------------------------------------------
 #
@@ -43,93 +43,93 @@ def cons_jdqd(Jdqd,s):
  
 # Trigonometric Variables  
 
-  C13 = np.cos(q[13])
-  S13 = np.sin(q[13])
-  C14 = np.cos(q[14])
-  S14 = np.sin(q[14])
+  C15 = np.cos(q[15])
+  S15 = np.sin(q[15])
+  C16 = np.cos(q[16])
+  S16 = np.sin(q[16])
 
 # = = Block_0_0_0_0_0_5 = = 
  
 # Trigonometric Variables  
 
-  C16 = np.cos(q[16])
-  S16 = np.sin(q[16])
-  C17 = np.cos(q[17])
-  S17 = np.sin(q[17])
+  C19 = np.cos(q[19])
+  S19 = np.sin(q[19])
+  C20 = np.cos(q[20])
+  S20 = np.sin(q[20])
 
 # = = Block_0_1_0_0_0_4 = = 
  
 # Trigonometric Variables  
 
 #
-  S13p14 = C13*S14+S13*C14
-  C13p14 = C13*C14-S13*S14
+  S15p16 = C15*S16+S15*C16
+  C15p16 = C15*C16-S15*S16
  
 # Constraints and Constraints Jacobian 
 
-  RL_1_214 = s.dpt[2,21]*C13
-  RL_1_314 = s.dpt[2,21]*S13
-  PO_1_214 = RL_1_214+s.dpt[2,9]
-  PO_1_314 = RL_1_314+s.dpt[3,9]
-  RL_1_220 = -s.dpt[3,24]*S13p14
-  RL_1_320 = s.dpt[3,24]*C13p14
+  RL_1_216 = s.dpt[2,21]*C15
+  RL_1_316 = s.dpt[2,21]*S15
+  PO_1_216 = RL_1_216+s.dpt[2,9]
+  PO_1_316 = RL_1_316+s.dpt[3,9]
+  RL_1_224 = -s.dpt[3,24]*S15p16
+  RL_1_324 = s.dpt[3,24]*C15p16
 
 # = = Block_0_1_0_0_0_5 = = 
  
 # Trigonometric Variables  
 
 #
-  S16p17 = C16*S17+S16*C17
-  C16p17 = C16*C17-S16*S17
+  S19p20 = C19*S20+S19*C20
+  C19p20 = C19*C20-S19*S20
  
 # Constraints and Constraints Jacobian 
 
-  RL_4_217 = s.dpt[2,27]*C16
-  RL_4_317 = s.dpt[2,27]*S16
-  PO_4_217 = RL_4_217+s.dpt[2,11]
-  PO_4_317 = RL_4_317+s.dpt[3,11]
-  RL_4_223 = -s.dpt[3,28]*S16p17
-  RL_4_323 = s.dpt[3,28]*C16p17
+  RL_4_220 = s.dpt[2,27]*C19
+  RL_4_320 = s.dpt[2,27]*S19
+  PO_4_220 = RL_4_220+s.dpt[2,11]
+  PO_4_320 = RL_4_320+s.dpt[3,11]
+  RL_4_227 = -s.dpt[3,28]*S19p20
+  RL_4_327 = s.dpt[3,28]*C19p20
 
 # = = Block_0_2_0_0_0_0 = = 
  
 # Constraints Quadratic Terms 
 
 #
-  OM_1_114 = qd[13]+qd[14]
-  OR_1_214 = -RL_1_314*qd[13]
-  OR_1_314 = RL_1_214*qd[13]
-  Apqp_1_214 = -OR_1_314*qd[13]
-  Apqp_1_314 = OR_1_214*qd[13]
-  OR_1_220 = -OM_1_114*RL_1_320
-  OR_1_320 = OM_1_114*RL_1_220
-  VI_1_220 = OR_1_214+OR_1_220
-  VI_1_320 = OR_1_314+OR_1_320
+  OM_1_116 = qd[15]+qd[16]
+  OR_1_216 = -RL_1_316*qd[15]
+  OR_1_316 = RL_1_216*qd[15]
+  Apqp_1_216 = -OR_1_316*qd[15]
+  Apqp_1_316 = OR_1_216*qd[15]
+  OR_1_224 = -OM_1_116*RL_1_324
+  OR_1_324 = OM_1_116*RL_1_224
+  VI_1_224 = OR_1_216+OR_1_224
+  VI_1_324 = OR_1_316+OR_1_324
 #
-  OM_4_117 = qd[16]+qd[17]
-  OR_4_217 = -RL_4_317*qd[16]
-  OR_4_317 = RL_4_217*qd[16]
-  Apqp_4_217 = -OR_4_317*qd[16]
-  Apqp_4_317 = OR_4_217*qd[16]
-  OR_4_223 = -OM_4_117*RL_4_323
-  OR_4_323 = OM_4_117*RL_4_223
-  VI_4_223 = OR_4_217+OR_4_223
-  VI_4_323 = OR_4_317+OR_4_323
+  OM_4_120 = qd[19]+qd[20]
+  OR_4_220 = -RL_4_320*qd[19]
+  OR_4_320 = RL_4_220*qd[19]
+  Apqp_4_220 = -OR_4_320*qd[19]
+  Apqp_4_320 = OR_4_220*qd[19]
+  OR_4_227 = -OM_4_120*RL_4_327
+  OR_4_327 = OM_4_120*RL_4_227
+  VI_4_227 = OR_4_220+OR_4_227
+  VI_4_327 = OR_4_320+OR_4_327
 
 # = = Block_0_2_0_0_0_1 = = 
  
 # Constraints Quadratic Terms 
 
 #
-  jdqd1 = VI_1_220*VI_1_220+VI_1_320*VI_1_320+(Apqp_1_314+OM_1_114*OR_1_220)*(PO_1_314+RL_1_320)+(Apqp_1_214-OM_1_114*\
-   OR_1_320)*(PO_1_214+RL_1_220-s.dpt[2,10])
+  jdqd1 = VI_1_224*VI_1_224+VI_1_324*VI_1_324+(Apqp_1_316+OM_1_116*OR_1_224)*(PO_1_316+RL_1_324)+(Apqp_1_216-OM_1_116*\
+   OR_1_324)*(PO_1_216+RL_1_224-s.dpt[2,10])
 #
-  jdqd2 = Apqp_1_214*(PO_1_214-s.dpt[2,6])+Apqp_1_314*(PO_1_314-s.dpt[3,6])+OR_1_214*OR_1_214+OR_1_314*OR_1_314
+  jdqd2 = Apqp_1_216*(PO_1_216-s.dpt[2,6])+Apqp_1_316*(PO_1_316-s.dpt[3,6])+OR_1_216*OR_1_216+OR_1_316*OR_1_316
 #
-  jdqd3 = VI_4_223*VI_4_223+VI_4_323*VI_4_323+(Apqp_4_317+OM_4_117*OR_4_223)*(PO_4_317+RL_4_323)+(Apqp_4_217-OM_4_117*\
-   OR_4_323)*(PO_4_217+RL_4_223-s.dpt[2,12])
+  jdqd3 = VI_4_227*VI_4_227+VI_4_327*VI_4_327+(Apqp_4_320+OM_4_120*OR_4_227)*(PO_4_320+RL_4_327)+(Apqp_4_220-OM_4_120*\
+   OR_4_327)*(PO_4_220+RL_4_227-s.dpt[2,12])
 #
-  jdqd4 = Apqp_4_217*(PO_4_217-s.dpt[2,8])+Apqp_4_317*(PO_4_317-s.dpt[3,8])+OR_4_217*OR_4_217+OR_4_317*OR_4_317
+  jdqd4 = Apqp_4_220*(PO_4_220-s.dpt[2,8])+Apqp_4_320*(PO_4_320-s.dpt[3,8])+OR_4_220*OR_4_220+OR_4_320*OR_4_320
 
 # = = Block_0_3_0_0_0_0 = = 
  

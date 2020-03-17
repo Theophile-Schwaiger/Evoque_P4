@@ -8,10 +8,25 @@
 #
 #Copyright 2019 Universite Catholique de Louvain
 
+try:
+    import MBsysPy as Robotran
+except:
+    raise ImportError("MBsysPy not found/installed."
+                      "See: https://www.robotran.eu/howto/install"
+                     )
 
 import numpy as np
 from math import cos, pi
+from mbs_tgc import *
+import inspect
+lines1 = inspect.getsource(mbs_tgc.tgc_car_kine_wheel)
 
+print(lines1)
+print('#######################################################################')
+print('#######################################################################')
+
+lines2 = inspect.getsource(mbs_tgc.tgc_bakker_contact)
+print(lines2)
 
 def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
     """ Compute the external force for a given force point
@@ -41,10 +56,20 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
     Mz=0.0
 
     if ixF == mbs.extforce_id["ExtForce_0"] or ixF == mbs.extforce_id["ExtForce_1"] or ixF == mbs.extforce_id["ExtForce_2"] or ixF == mbs.extforce_id["ExtForce_3"]:
+        pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(PxF,RxF,VxF,OMxF,R0)
         e = PxF[3] - (RxF[2,2]*R0)
+        print(angslip)
+        print(angcamb)
+        print(slip)
+
+
+        #print(e == pen)
+        
         #e = PxF[3] - R0
+        #e = pen
  
         ed = VxF[3]
+        #ed = Vmct[3]
         
         if mbs.process == 2:
             
@@ -60,17 +85,42 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
                 
                 #Fz = -Kp*e - Dp*ed 
                 Fz = -Kp*e + Dp*abs(ed)
+                
 
                 
             else:
                 
                 Fz = 0
+
+            Fwhl = np.zeros(4) 
+            #Fwhl[3] = Fz
+            Mwhl = np.zeros(4)
                 
+            mbs_tgc.tgc_bakker_contact(Fwhl,Mwhl,angslip,angcamb,slip)
+                
+            Rt_ground = np.reshape(Rt_ground,(-1,4))
+                
+            F = Fwhl[1:]
+            print(F)
+            F = Rt_ground[1:,1:] @ F
+                
+            M = Mwhl[1:]
+            M = Rt_ground[1:,1:] @ M
+                
+            Fx = F[0]
+            Fy = F[1]
+            #Fz = F[2]
+    
+            Mx = M[0]
+            My = M[1]
+            Mz = M[2]
+    
+    
+    #dxF = mbs.dpt[1:,idpt]
+    #dxF=np.array([0,0,-(PxF[3]/RxF[2,2])])
     
     idpt=mbs.xfidpt[ixF]
-    #dxF = mbs.dpt[1:,idpt]
-    dxF=np.array([0,0,-(PxF[3]/RxF[2,2])])
     Swr=np.zeros(9+1)
-    Swr[1:]=np.r_[Fx,Fy,Fz,Mx,My,Mz,dxF]
+    Swr[1:]=np.r_[Fx,Fy,Fz,Mx,My,Mz,dxF[1:]]
         
     return Swr
