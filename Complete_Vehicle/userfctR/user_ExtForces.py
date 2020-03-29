@@ -104,7 +104,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
             Rt_ground = np.reshape(Rt_ground,(-1,4))
                 
             F = Fwhl[1:]
-            print(F)
+            #print(F)
             F = Rt_ground[1:,1:] @ F
                 
             M = Mwhl[1:]

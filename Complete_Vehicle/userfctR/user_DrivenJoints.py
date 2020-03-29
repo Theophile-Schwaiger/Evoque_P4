@@ -22,34 +22,40 @@ def user_DrivenJoints(mbs,tsim):
     # mbs.q[5]   = mbs.q0[5]  + mbs.qd0[5]*tsim + 0.5 * mbs.qdd[5]*tsim*tsim
     
     
-    for i in [14,22,30,38]:
-        
-        mbs.qdd[i] = 0
-        mbs.qd[i]  = 2.89
-        mbs.q[i]   = 2.89 * tsim
+#    for i in [14,22,30,38]:
+#        
+#        mbs.qdd[i] = 0
+#        mbs.qd[i]  = 2.89
+#        mbs.q[i]   = 2.89 * tsim
      
-    if tsim <0.5 :
-        
-        mbs.qdd[8] = 0
-        mbs.qd[8]  = 0
-        mbs.q[8]   = 1.4*tsim
-        
-        mbs.qdd[16] = 0
-        mbs.qd[16]  = 0
-        mbs.q[16]   = 0.8*tsim
-    else:
-        
-        mbs.qdd[8] = 0
-        mbs.qd[8]  = 0
-        mbs.q[8]   = 0.7
-        
-        mbs.qdd[16] = 0
-        mbs.qd[16]  = 0
-        mbs.q[16]   = 0.4
+#    if tsim <0.5 :
+#        
+#        mbs.qdd[8] = 0
+#        mbs.qd[8]  = 0
+#        mbs.q[8]   = 1.4*tsim
+#        
+#        mbs.qdd[16] = 0
+#        mbs.qd[16]  = 0
+#        mbs.q[16]   = 0.8*tsim
+#    else:
+#        
+#        mbs.qdd[8] = 0
+#        mbs.qd[8]  = 0
+#        mbs.q[8]   = 0.7
+#        
+#        mbs.qdd[16] = 0
+#        mbs.qd[16]  = 0
+#        mbs.q[16]   = 0.4
         
    
-#    mbs.qdd[1] = 0
-#    mbs.qd[1]  = 1.0
-#    mbs.q[1]   = 1.0 * tsim
+    if tsim > 1.0:
+        mbs.qdd[1] = -10.0
+        mbs.qd[1]  = -20.0 * tsim + 40
+        mbs.q[1]   = -10.0 * tsim * tsim + 40*tsim -20
+    else:
+        mbs.qdd[1] = 20.0
+        mbs.qd[1]  = 20.0 * tsim
+        mbs.q[1]   = 10.0 * tsim * tsim
+
             
     return

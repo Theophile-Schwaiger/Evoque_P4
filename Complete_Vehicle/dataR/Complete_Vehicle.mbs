@@ -15,8 +15,8 @@
     <graphics>
       <x2D>
         <position>
-          <x>823.0</x>
-          <y>1045.0</y>
+          <x>870.0</x>
+          <y>1027.0</y>
         </position>
         <base_body>
           <position>
@@ -79,9 +79,9 @@
             <shininess>250.0</shininess>
             <transparency>0.5</transparency>
             <size>
-              <x>5.0</x>
-              <y>5.0</y>
-              <z>0.01</z>
+              <x>10.0</x>
+              <y>10.0</y>
+              <z>0.02</z>
             </size>
           </box>
         </x3D_shapes>
@@ -99,10 +99,12 @@
       <joint>
         <jointname>Joint_0</jointname>
         <type>T1</type>
-        <nature>independent</nature>
-        <initialvalue>
-          <qd>1.0</qd>
-        </initialvalue>
+        <nature>driven</nature>
+        <symbols>
+          <q />
+          <qd />
+          <qdd />
+        </symbols>
         <graphics>
           <x2D>
             <position>
@@ -123,7 +125,7 @@
         <graphics>
           <x2D>
             <position>
-              <x>923.0</x>
+              <x>946.0</x>
               <y>1094.0</y>
             </position>
           </x2D>
@@ -143,8 +145,8 @@
         <graphics>
           <x2D>
             <position>
-              <x>911.0</x>
-              <y>1000.0</y>
+              <x>949.0</x>
+              <y>994.0</y>
             </position>
           </x2D>
           <x3D>
@@ -160,8 +162,8 @@
         <graphics>
           <x2D>
             <position>
-              <x>913.0</x>
-              <y>883.0</y>
+              <x>948.0</x>
+              <y>881.0</y>
             </position>
           </x2D>
           <x3D>
@@ -289,7 +291,7 @@
         <pointname>RS_ARD_Link</pointname>
         <coordinates>
           <x>-1.0</x>
-          <y>0.45</y>
+          <y>0.5</y>
           <z>0.51</z>
         </coordinates>
         <graphics>
@@ -323,7 +325,7 @@
         <pointname>RS_ARG_Link</pointname>
         <coordinates>
           <x>-1.0</x>
-          <y>-0.45</y>
+          <y>-0.5</y>
           <z>0.51</z>
         </coordinates>
         <graphics>
@@ -496,6 +498,35 @@
           <x3D_com />
           <x3D_points />
           <x3D_lines />
+          <x3D_shapes>
+            <box>
+              <name>New_Shape</name>
+              <position>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.3</z>
+              </position>
+              <scale>
+                <x>1.0</x>
+                <y>1.0</y>
+                <z>1.0</z>
+              </scale>
+              <rotation>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+              </rotation>
+              <color R="0" G="0" B="0" />
+              <specularColor R="255" G="255" B="255" />
+              <shininess>250.0</shininess>
+              <transparency>0.5</transparency>
+              <size>
+                <x>2.4</x>
+                <y>1.0</y>
+                <z>0.8</z>
+              </size>
+            </box>
+          </x3D_shapes>
         </x3D>
       </graphics>
     </body>
@@ -681,7 +712,7 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>2.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
@@ -690,8 +721,9 @@
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.032</Ixx>
-        <Izz>0.032</Izz>
+        <Ixx>0.017</Ixx>
+        <Iyy>0.025</Iyy>
+        <Izz>0.017</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -813,18 +845,18 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>1.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
           <y>0.0</y>
-          <z>0.2</z>
+          <z>0.25</z>
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.02</Ixx>
-        <Iyy>0.02</Iyy>
-        <Izz>0.02</Izz>
+        <Ixx>0.0403</Ixx>
+        <Iyy>0.001</Iyy>
+        <Izz>0.0403</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -942,12 +974,7 @@
       <joint>
         <jointname>Joint_9</jointname>
         <type>R2</type>
-        <nature>driven</nature>
-        <symbols>
-          <q />
-          <qd />
-          <qdd />
-        </symbols>
+        <nature>independent</nature>
         <graphics>
           <x2D>
             <position>
@@ -964,7 +991,7 @@
       <mass>19.5</mass>
       <inertia>
         <Ixx>0.475</Ixx>
-        <Iyy>0.475</Iyy>
+        <Iyy>0.814</Iyy>
         <Izz>0.475</Izz>
       </inertia>
       <point>
@@ -1226,7 +1253,7 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>2.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
@@ -1235,8 +1262,9 @@
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.032</Ixx>
-        <Izz>0.032</Izz>
+        <Ixx>0.017</Ixx>
+        <Iyy>0.025</Iyy>
+        <Izz>0.017</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -1358,18 +1386,18 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>1.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
           <y>0.0</y>
-          <z>0.2</z>
+          <z>0.25</z>
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.02</Ixx>
-        <Iyy>0.02</Iyy>
-        <Izz>0.02</Izz>
+        <Ixx>0.067</Ixx>
+        <Iyy>0.001</Iyy>
+        <Izz>0.067</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -1487,12 +1515,7 @@
       <joint>
         <jointname>Joint_13</jointname>
         <type>R2</type>
-        <nature>driven</nature>
-        <symbols>
-          <q />
-          <qd />
-          <qdd />
-        </symbols>
+        <nature>independent</nature>
         <graphics>
           <x2D>
             <position>
@@ -1509,7 +1532,7 @@
       <mass>19.5</mass>
       <inertia>
         <Ixx>0.475</Ixx>
-        <Iyy>0.475</Iyy>
+        <Iyy>0.814</Iyy>
         <Izz>0.475</Izz>
       </inertia>
       <point>
@@ -1641,9 +1664,8 @@
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.025</Ixx>
-        <Iyy>0.025</Iyy>
-        <Izz>0.025</Izz>
+        <Ixx>0.0659</Ixx>
+        <Izz>0.0659</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -1679,11 +1701,11 @@
           </size>
           <control_points>
             <control_point>
-              <x>78.0</x>
-              <y>-13.0</y>
+              <x>123.0</x>
+              <y>-25.0</y>
             </control_point>
             <control_point>
-              <x>78.0</x>
+              <x>123.0</x>
               <y>11.0</y>
             </control_point>
             <control_point>
@@ -1692,7 +1714,7 @@
             </control_point>
             <control_point>
               <x>-11.0</x>
-              <y>-13.0</y>
+              <y>-25.0</y>
             </control_point>
           </control_points>
           <angle>0.0</angle>
@@ -1773,7 +1795,7 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>2.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
@@ -1782,9 +1804,9 @@
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.032</Ixx>
-        <Iyy>0.032</Iyy>
-        <Izz>0.032</Izz>
+        <Ixx>0.017</Ixx>
+        <Iyy>0.025</Iyy>
+        <Izz>0.017</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -1903,7 +1925,7 @@
         <type>R1</type>
         <nature>dependent</nature>
         <initialvalue>
-          <q>0.367827</q>
+          <q>0.257565</q>
         </initialvalue>
         <graphics>
           <x2D>
@@ -1935,25 +1957,25 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>1.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
           <y>0.0</y>
-          <z>0.2</z>
+          <z>0.25</z>
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.02</Ixx>
-        <Iyy>0.02</Iyy>
-        <Izz>0.02</Izz>
+        <Ixx>0.074</Ixx>
+        <Iyy>0.001</Iyy>
+        <Izz>0.074</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
         <coordinates>
           <x>0.0</x>
           <y>0.0</y>
-          <z>0.43939</z>
+          <z>0.42</z>
         </coordinates>
         <graphics>
           <x2D>
@@ -2064,12 +2086,7 @@
       <joint>
         <jointname>Joint_18</jointname>
         <type>R2</type>
-        <nature>driven</nature>
-        <symbols>
-          <q />
-          <qd />
-          <qdd />
-        </symbols>
+        <nature>independent</nature>
         <graphics>
           <x2D>
             <position>
@@ -2086,7 +2103,7 @@
       <mass>19.5</mass>
       <inertia>
         <Ixx>0.475</Ixx>
-        <Iyy>0.475</Iyy>
+        <Iyy>0.814</Iyy>
         <Izz>0.475</Izz>
       </inertia>
       <point>
@@ -2218,9 +2235,8 @@
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.025</Ixx>
-        <Iyy>0.025</Iyy>
-        <Izz>0.025</Izz>
+        <Ixx>0.0659</Ixx>
+        <Izz>0.0659</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -2350,7 +2366,7 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>2.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
@@ -2359,9 +2375,9 @@
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.032</Ixx>
-        <Iyy>0.032</Iyy>
-        <Izz>0.032</Izz>
+        <Ixx>0.017</Ixx>
+        <Iyy>0.025</Iyy>
+        <Izz>0.017</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
@@ -2480,7 +2496,7 @@
         <type>R1</type>
         <nature>dependent</nature>
         <initialvalue>
-          <q>-0.367827</q>
+          <q>-0.257565</q>
         </initialvalue>
         <graphics>
           <x2D>
@@ -2512,25 +2528,25 @@
           </x3D>
         </graphics>
       </joint>
-      <mass>1.0</mass>
+      <mass>5.0</mass>
       <com>
         <coordinates>
           <x>0.0</x>
           <y>0.0</y>
-          <z>0.2</z>
+          <z>0.25</z>
         </coordinates>
       </com>
       <inertia>
-        <Ixx>0.02</Ixx>
-        <Iyy>0.02</Iyy>
-        <Izz>0.02</Izz>
+        <Ixx>0.074</Ixx>
+        <Iyy>0.001</Iyy>
+        <Izz>0.074</Izz>
       </inertia>
       <point>
         <pointname>Point_0</pointname>
         <coordinates>
           <x>0.0</x>
           <y>0.0</y>
-          <z>0.43939</z>
+          <z>0.42</z>
         </coordinates>
         <graphics>
           <x2D>
@@ -2641,12 +2657,7 @@
       <joint>
         <jointname>Joint_23</jointname>
         <type>R2</type>
-        <nature>driven</nature>
-        <symbols>
-          <q />
-          <qd />
-          <qdd />
-        </symbols>
+        <nature>independent</nature>
         <graphics>
           <x2D>
             <position>
@@ -2663,7 +2674,7 @@
       <mass>19.5</mass>
       <inertia>
         <Ixx>0.475</Ixx>
-        <Iyy>0.475</Iyy>
+        <Iyy>0.814</Iyy>
         <Izz>0.475</Izz>
       </inertia>
       <point>
@@ -2774,6 +2785,34 @@
         <x3D />
       </graphics>
     </ball>
+    <ball>
+      <name>Cut_6</name>
+      <endpoint1>
+        <bodyname>Strut_AVG</bodyname>
+        <pointname>Point_0</pointname>
+      </endpoint1>
+      <endpoint2>
+        <bodyname>Chassis</bodyname>
+        <pointname>RS_AVG_Link</pointname>
+      </endpoint2>
+      <graphics>
+        <x3D />
+      </graphics>
+    </ball>
+    <ball>
+      <name>Cut_7</name>
+      <endpoint1>
+        <bodyname>Chassis</bodyname>
+        <pointname>RS_AVD_Link</pointname>
+      </endpoint1>
+      <endpoint2>
+        <bodyname>Strut_AVD</bodyname>
+        <pointname>Point_0</pointname>
+      </endpoint2>
+      <graphics>
+        <x3D />
+      </graphics>
+    </ball>
     <rod>
       <name>Cut_0</name>
       <endpoint1>
@@ -2834,34 +2873,6 @@
         <x3D />
       </graphics>
     </rod>
-    <ball>
-      <name>Cut_6</name>
-      <endpoint1>
-        <bodyname>Strut_AVG</bodyname>
-        <pointname>Point_0</pointname>
-      </endpoint1>
-      <endpoint2>
-        <bodyname>Chassis</bodyname>
-        <pointname>RS_AVG_Link</pointname>
-      </endpoint2>
-      <graphics>
-        <x3D />
-      </graphics>
-    </ball>
-    <ball>
-      <name>Cut_7</name>
-      <endpoint1>
-        <bodyname>Chassis</bodyname>
-        <pointname>RS_AVD_Link</pointname>
-      </endpoint1>
-      <endpoint2>
-        <bodyname>Strut_AVD</bodyname>
-        <pointname>Point_0</pointname>
-      </endpoint2>
-      <graphics>
-        <x3D />
-      </graphics>
-    </ball>
   </cuts>
   <user_models>
     <!--this is the userModel list-->
