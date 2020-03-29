@@ -11,7 +11,7 @@
 #	1348 Louvain-la-Neuve 
 #	http://www.robotran.be// 
 #
-#	==> Generation Date : Mon Mar 16 18:21:54 2020
+#	==> Generation Date : Thu Mar 26 17:28:13 2020
 #
 #	==> Project name : Complete_Vehicle_Test
 #	==> using XML input file 
@@ -19,10 +19,10 @@
 #	==> Number of joints : 18
 #
 #	==> Function : F 6 : Sensors Kinematical Informations (sens) 
-#	==> Flops complexity : 3042
+#	==> Flops complexity : 3030
 #
 #	==> Generation Time :  0.050 seconds
-#	==> Post-Processing :  0.050 seconds
+#	==> Post-Processing :  0.060 seconds
 #
 #-------------------------------------------------------------
 #
@@ -173,19 +173,19 @@ def sensor(sens, s, isens):
     sens.P[1] = q[1]
     sens.P[2] = q[2]
     sens.P[3] = q[3]
-    sens.R[1,1] = (1.0)
+    sens.R[1,1] = C4
+    sens.R[1,2] = S4
+    sens.R[2,1] = -S4
     sens.R[2,2] = C4
-    sens.R[2,3] = S4
-    sens.R[3,2] = -S4
-    sens.R[3,3] = C4
+    sens.R[3,3] = (1.0)
     sens.V[1] = qd[1]
     sens.V[2] = qd[2]
     sens.V[3] = qd[3]
-    sens.OM[1] = qd[4]
+    sens.OM[3] = qd[4]
     sens.A[1] = qdd[1]
     sens.A[2] = qdd[2]
     sens.A[3] = qdd[3]
-    sens.OMP[1] = qdd[4]
+    sens.OMP[3] = qdd[4]
  
 # 
   elif(isens==5): 
@@ -196,14 +196,14 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp4_25 = S4*S5
-    ROcp4_35 = -C4*S5
-    ROcp4_85 = -S4*C5
-    ROcp4_95 = C4*C5
-    OMcp4_25 = qd[5]*C4
-    OMcp4_35 = qd[5]*S4
-    OPcp4_25 = qdd[5]*C4-qd[4]*qd[5]*S4
-    OPcp4_35 = qdd[5]*S4+qd[4]*qd[5]*C4
+    ROcp4_45 = -S4*C5
+    ROcp4_55 = C4*C5
+    ROcp4_75 = S4*S5
+    ROcp4_85 = -C4*S5
+    OMcp4_15 = qd[5]*C4
+    OMcp4_25 = qd[5]*S4
+    OPcp4_15 = qdd[5]*C4-qd[4]*qd[5]*S4
+    OPcp4_25 = qdd[5]*S4+qd[4]*qd[5]*C4
 
 # = = Block_1_0_0_5_1_0 = = 
  
@@ -212,26 +212,26 @@ def sensor(sens, s, isens):
     sens.P[1] = q[1]
     sens.P[2] = q[2]
     sens.P[3] = q[3]
-    sens.R[1,1] = C5
-    sens.R[1,2] = ROcp4_25
-    sens.R[1,3] = ROcp4_35
-    sens.R[2,2] = C4
-    sens.R[2,3] = S4
-    sens.R[3,1] = S5
+    sens.R[1,1] = C4
+    sens.R[1,2] = S4
+    sens.R[2,1] = ROcp4_45
+    sens.R[2,2] = ROcp4_55
+    sens.R[2,3] = S5
+    sens.R[3,1] = ROcp4_75
     sens.R[3,2] = ROcp4_85
-    sens.R[3,3] = ROcp4_95
+    sens.R[3,3] = C5
     sens.V[1] = qd[1]
     sens.V[2] = qd[2]
     sens.V[3] = qd[3]
-    sens.OM[1] = qd[4]
+    sens.OM[1] = OMcp4_15
     sens.OM[2] = OMcp4_25
-    sens.OM[3] = OMcp4_35
+    sens.OM[3] = qd[4]
     sens.A[1] = qdd[1]
     sens.A[2] = qdd[2]
     sens.A[3] = qdd[3]
-    sens.OMP[1] = qdd[4]
+    sens.OMP[1] = OPcp4_15
     sens.OMP[2] = OPcp4_25
-    sens.OMP[3] = OPcp4_35
+    sens.OMP[3] = qdd[4]
  
 # 
   elif(isens==6): 
@@ -242,24 +242,24 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp5_25 = S4*S5
-    ROcp5_35 = -C4*S5
-    ROcp5_85 = -S4*C5
-    ROcp5_95 = C4*C5
-    ROcp5_16 = C5*C6
-    ROcp5_26 = ROcp5_25*C6+C4*S6
-    ROcp5_36 = ROcp5_35*C6+S4*S6
-    ROcp5_46 = -C5*S6
-    ROcp5_56 = -(ROcp5_25*S6-C4*C6)
-    ROcp5_66 = -(ROcp5_35*S6-S4*C6)
-    OMcp5_25 = qd[5]*C4
-    OMcp5_35 = qd[5]*S4
-    OMcp5_16 = qd[4]+qd[6]*S5
-    OMcp5_26 = OMcp5_25+ROcp5_85*qd[6]
-    OMcp5_36 = OMcp5_35+ROcp5_95*qd[6]
-    OPcp5_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp5_26 = ROcp5_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp5_35*S5-ROcp5_95*qd[4])
-    OPcp5_36 = ROcp5_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp5_25*S5-ROcp5_85*qd[4])
+    ROcp5_45 = -S4*C5
+    ROcp5_55 = C4*C5
+    ROcp5_75 = S4*S5
+    ROcp5_85 = -C4*S5
+    ROcp5_16 = -(ROcp5_75*S6-C4*C6)
+    ROcp5_26 = -(ROcp5_85*S6-S4*C6)
+    ROcp5_36 = -C5*S6
+    ROcp5_76 = ROcp5_75*C6+C4*S6
+    ROcp5_86 = ROcp5_85*C6+S4*S6
+    ROcp5_96 = C5*C6
+    OMcp5_15 = qd[5]*C4
+    OMcp5_25 = qd[5]*S4
+    OMcp5_16 = OMcp5_15+ROcp5_45*qd[6]
+    OMcp5_26 = OMcp5_25+ROcp5_55*qd[6]
+    OMcp5_36 = qd[4]+qd[6]*S5
+    OPcp5_16 = ROcp5_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp5_25*S5-ROcp5_55*qd[4])
+    OPcp5_26 = ROcp5_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp5_15*S5-ROcp5_45*qd[4])
+    OPcp5_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_6_1_0 = = 
  
@@ -271,12 +271,12 @@ def sensor(sens, s, isens):
     sens.R[1,1] = ROcp5_16
     sens.R[1,2] = ROcp5_26
     sens.R[1,3] = ROcp5_36
-    sens.R[2,1] = ROcp5_46
-    sens.R[2,2] = ROcp5_56
-    sens.R[2,3] = ROcp5_66
-    sens.R[3,1] = S5
-    sens.R[3,2] = ROcp5_85
-    sens.R[3,3] = ROcp5_95
+    sens.R[2,1] = ROcp5_45
+    sens.R[2,2] = ROcp5_55
+    sens.R[2,3] = S5
+    sens.R[3,1] = ROcp5_76
+    sens.R[3,2] = ROcp5_86
+    sens.R[3,3] = ROcp5_96
     sens.V[1] = qd[1]
     sens.V[2] = qd[2]
     sens.V[3] = qd[3]
@@ -299,39 +299,39 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp6_25 = S4*S5
-    ROcp6_35 = -C4*S5
-    ROcp6_85 = -S4*C5
-    ROcp6_95 = C4*C5
-    ROcp6_16 = C5*C6
-    ROcp6_26 = ROcp6_25*C6+C4*S6
-    ROcp6_36 = ROcp6_35*C6+S4*S6
-    ROcp6_46 = -C5*S6
-    ROcp6_56 = -(ROcp6_25*S6-C4*C6)
-    ROcp6_66 = -(ROcp6_35*S6-S4*C6)
-    OMcp6_25 = qd[5]*C4
-    OMcp6_35 = qd[5]*S4
-    OMcp6_16 = qd[4]+qd[6]*S5
-    OMcp6_26 = OMcp6_25+ROcp6_85*qd[6]
-    OMcp6_36 = OMcp6_35+ROcp6_95*qd[6]
-    OPcp6_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp6_26 = ROcp6_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp6_35*S5-ROcp6_95*qd[4])
-    OPcp6_36 = ROcp6_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp6_25*S5-ROcp6_85*qd[4])
+    ROcp6_45 = -S4*C5
+    ROcp6_55 = C4*C5
+    ROcp6_75 = S4*S5
+    ROcp6_85 = -C4*S5
+    ROcp6_16 = -(ROcp6_75*S6-C4*C6)
+    ROcp6_26 = -(ROcp6_85*S6-S4*C6)
+    ROcp6_36 = -C5*S6
+    ROcp6_76 = ROcp6_75*C6+C4*S6
+    ROcp6_86 = ROcp6_85*C6+S4*S6
+    ROcp6_96 = C5*C6
+    OMcp6_15 = qd[5]*C4
+    OMcp6_25 = qd[5]*S4
+    OMcp6_16 = OMcp6_15+ROcp6_45*qd[6]
+    OMcp6_26 = OMcp6_25+ROcp6_55*qd[6]
+    OMcp6_36 = qd[4]+qd[6]*S5
+    OPcp6_16 = ROcp6_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp6_25*S5-ROcp6_55*qd[4])
+    OPcp6_26 = ROcp6_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp6_15*S5-ROcp6_45*qd[4])
+    OPcp6_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_7_0_2 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp6_47 = ROcp6_46*C7+S5*S7
-    ROcp6_57 = ROcp6_56*C7+ROcp6_85*S7
-    ROcp6_67 = ROcp6_66*C7+ROcp6_95*S7
-    ROcp6_77 = -(ROcp6_46*S7-S5*C7)
-    ROcp6_87 = -(ROcp6_56*S7-ROcp6_85*C7)
-    ROcp6_97 = -(ROcp6_66*S7-ROcp6_95*C7)
-    RLcp6_17 = ROcp6_16*s.dpt[1,1]+ROcp6_46*s.dpt[2,1]+s.dpt[3,1]*S5
-    RLcp6_27 = ROcp6_26*s.dpt[1,1]+ROcp6_56*s.dpt[2,1]+ROcp6_85*s.dpt[3,1]
-    RLcp6_37 = ROcp6_36*s.dpt[1,1]+ROcp6_66*s.dpt[2,1]+ROcp6_95*s.dpt[3,1]
+    ROcp6_47 = ROcp6_45*C7+ROcp6_76*S7
+    ROcp6_57 = ROcp6_55*C7+ROcp6_86*S7
+    ROcp6_67 = ROcp6_96*S7+S5*C7
+    ROcp6_77 = -(ROcp6_45*S7-ROcp6_76*C7)
+    ROcp6_87 = -(ROcp6_55*S7-ROcp6_86*C7)
+    ROcp6_97 = ROcp6_96*C7-S5*S7
+    RLcp6_17 = ROcp6_16*s.dpt[1,1]+ROcp6_45*s.dpt[2,1]+ROcp6_76*s.dpt[3,1]
+    RLcp6_27 = ROcp6_26*s.dpt[1,1]+ROcp6_55*s.dpt[2,1]+ROcp6_86*s.dpt[3,1]
+    RLcp6_37 = ROcp6_36*s.dpt[1,1]+ROcp6_96*s.dpt[3,1]+s.dpt[2,1]*S5
     POcp6_17 = RLcp6_17+q[1]
     POcp6_27 = RLcp6_27+q[2]
     POcp6_37 = RLcp6_37+q[3]
@@ -389,45 +389,45 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp7_25 = S4*S5
-    ROcp7_35 = -C4*S5
-    ROcp7_85 = -S4*C5
-    ROcp7_95 = C4*C5
-    ROcp7_16 = C5*C6
-    ROcp7_26 = ROcp7_25*C6+C4*S6
-    ROcp7_36 = ROcp7_35*C6+S4*S6
-    ROcp7_46 = -C5*S6
-    ROcp7_56 = -(ROcp7_25*S6-C4*C6)
-    ROcp7_66 = -(ROcp7_35*S6-S4*C6)
-    OMcp7_25 = qd[5]*C4
-    OMcp7_35 = qd[5]*S4
-    OMcp7_16 = qd[4]+qd[6]*S5
-    OMcp7_26 = OMcp7_25+ROcp7_85*qd[6]
-    OMcp7_36 = OMcp7_35+ROcp7_95*qd[6]
-    OPcp7_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp7_26 = ROcp7_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp7_35*S5-ROcp7_95*qd[4])
-    OPcp7_36 = ROcp7_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp7_25*S5-ROcp7_85*qd[4])
+    ROcp7_45 = -S4*C5
+    ROcp7_55 = C4*C5
+    ROcp7_75 = S4*S5
+    ROcp7_85 = -C4*S5
+    ROcp7_16 = -(ROcp7_75*S6-C4*C6)
+    ROcp7_26 = -(ROcp7_85*S6-S4*C6)
+    ROcp7_36 = -C5*S6
+    ROcp7_76 = ROcp7_75*C6+C4*S6
+    ROcp7_86 = ROcp7_85*C6+S4*S6
+    ROcp7_96 = C5*C6
+    OMcp7_15 = qd[5]*C4
+    OMcp7_25 = qd[5]*S4
+    OMcp7_16 = OMcp7_15+ROcp7_45*qd[6]
+    OMcp7_26 = OMcp7_25+ROcp7_55*qd[6]
+    OMcp7_36 = qd[4]+qd[6]*S5
+    OPcp7_16 = ROcp7_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp7_25*S5-ROcp7_55*qd[4])
+    OPcp7_26 = ROcp7_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp7_15*S5-ROcp7_45*qd[4])
+    OPcp7_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_8_0_2 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp7_47 = ROcp7_46*C7+S5*S7
-    ROcp7_57 = ROcp7_56*C7+ROcp7_85*S7
-    ROcp7_67 = ROcp7_66*C7+ROcp7_95*S7
-    ROcp7_77 = -(ROcp7_46*S7-S5*C7)
-    ROcp7_87 = -(ROcp7_56*S7-ROcp7_85*C7)
-    ROcp7_97 = -(ROcp7_66*S7-ROcp7_95*C7)
+    ROcp7_47 = ROcp7_45*C7+ROcp7_76*S7
+    ROcp7_57 = ROcp7_55*C7+ROcp7_86*S7
+    ROcp7_67 = ROcp7_96*S7+S5*C7
+    ROcp7_77 = -(ROcp7_45*S7-ROcp7_76*C7)
+    ROcp7_87 = -(ROcp7_55*S7-ROcp7_86*C7)
+    ROcp7_97 = ROcp7_96*C7-S5*S7
     ROcp7_18 = ROcp7_16*C8+ROcp7_47*S8
     ROcp7_28 = ROcp7_26*C8+ROcp7_57*S8
     ROcp7_38 = ROcp7_36*C8+ROcp7_67*S8
     ROcp7_48 = -(ROcp7_16*S8-ROcp7_47*C8)
     ROcp7_58 = -(ROcp7_26*S8-ROcp7_57*C8)
     ROcp7_68 = -(ROcp7_36*S8-ROcp7_67*C8)
-    RLcp7_17 = ROcp7_16*s.dpt[1,1]+ROcp7_46*s.dpt[2,1]+s.dpt[3,1]*S5
-    RLcp7_27 = ROcp7_26*s.dpt[1,1]+ROcp7_56*s.dpt[2,1]+ROcp7_85*s.dpt[3,1]
-    RLcp7_37 = ROcp7_36*s.dpt[1,1]+ROcp7_66*s.dpt[2,1]+ROcp7_95*s.dpt[3,1]
+    RLcp7_17 = ROcp7_16*s.dpt[1,1]+ROcp7_45*s.dpt[2,1]+ROcp7_76*s.dpt[3,1]
+    RLcp7_27 = ROcp7_26*s.dpt[1,1]+ROcp7_55*s.dpt[2,1]+ROcp7_86*s.dpt[3,1]
+    RLcp7_37 = ROcp7_36*s.dpt[1,1]+ROcp7_96*s.dpt[3,1]+s.dpt[2,1]*S5
     OMcp7_17 = OMcp7_16+ROcp7_16*qd[7]
     OMcp7_27 = OMcp7_26+ROcp7_26*qd[7]
     OMcp7_37 = OMcp7_36+ROcp7_36*qd[7]
@@ -437,9 +437,9 @@ def sensor(sens, s, isens):
     OPcp7_17 = OPcp7_16+ROcp7_16*qdd[7]+qd[7]*(OMcp7_26*ROcp7_36-OMcp7_36*ROcp7_26)
     OPcp7_27 = OPcp7_26+ROcp7_26*qdd[7]-qd[7]*(OMcp7_16*ROcp7_36-OMcp7_36*ROcp7_16)
     OPcp7_37 = OPcp7_36+ROcp7_36*qdd[7]+qd[7]*(OMcp7_16*ROcp7_26-OMcp7_26*ROcp7_16)
-    RLcp7_18 = ROcp7_47*s.dpt[2,13]
-    RLcp7_28 = ROcp7_57*s.dpt[2,13]
-    RLcp7_38 = ROcp7_67*s.dpt[2,13]
+    RLcp7_18 = ROcp7_47*s.dpt[2,14]
+    RLcp7_28 = ROcp7_57*s.dpt[2,14]
+    RLcp7_38 = ROcp7_67*s.dpt[2,14]
     POcp7_18 = RLcp7_17+RLcp7_18+q[1]
     POcp7_28 = RLcp7_27+RLcp7_28+q[2]
     POcp7_38 = RLcp7_37+RLcp7_38+q[3]
@@ -500,36 +500,36 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp8_25 = S4*S5
-    ROcp8_35 = -C4*S5
-    ROcp8_85 = -S4*C5
-    ROcp8_95 = C4*C5
-    ROcp8_16 = C5*C6
-    ROcp8_26 = ROcp8_25*C6+C4*S6
-    ROcp8_36 = ROcp8_35*C6+S4*S6
-    ROcp8_46 = -C5*S6
-    ROcp8_56 = -(ROcp8_25*S6-C4*C6)
-    ROcp8_66 = -(ROcp8_35*S6-S4*C6)
-    OMcp8_25 = qd[5]*C4
-    OMcp8_35 = qd[5]*S4
-    OMcp8_16 = qd[4]+qd[6]*S5
-    OMcp8_26 = OMcp8_25+ROcp8_85*qd[6]
-    OMcp8_36 = OMcp8_35+ROcp8_95*qd[6]
-    OPcp8_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp8_26 = ROcp8_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp8_35*S5-ROcp8_95*qd[4])
-    OPcp8_36 = ROcp8_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp8_25*S5-ROcp8_85*qd[4])
+    ROcp8_45 = -S4*C5
+    ROcp8_55 = C4*C5
+    ROcp8_75 = S4*S5
+    ROcp8_85 = -C4*S5
+    ROcp8_16 = -(ROcp8_75*S6-C4*C6)
+    ROcp8_26 = -(ROcp8_85*S6-S4*C6)
+    ROcp8_36 = -C5*S6
+    ROcp8_76 = ROcp8_75*C6+C4*S6
+    ROcp8_86 = ROcp8_85*C6+S4*S6
+    ROcp8_96 = C5*C6
+    OMcp8_15 = qd[5]*C4
+    OMcp8_25 = qd[5]*S4
+    OMcp8_16 = OMcp8_15+ROcp8_45*qd[6]
+    OMcp8_26 = OMcp8_25+ROcp8_55*qd[6]
+    OMcp8_36 = qd[4]+qd[6]*S5
+    OPcp8_16 = ROcp8_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp8_25*S5-ROcp8_55*qd[4])
+    OPcp8_26 = ROcp8_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp8_15*S5-ROcp8_45*qd[4])
+    OPcp8_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_9_0_2 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp8_47 = ROcp8_46*C7+S5*S7
-    ROcp8_57 = ROcp8_56*C7+ROcp8_85*S7
-    ROcp8_67 = ROcp8_66*C7+ROcp8_95*S7
-    ROcp8_77 = -(ROcp8_46*S7-S5*C7)
-    ROcp8_87 = -(ROcp8_56*S7-ROcp8_85*C7)
-    ROcp8_97 = -(ROcp8_66*S7-ROcp8_95*C7)
+    ROcp8_47 = ROcp8_45*C7+ROcp8_76*S7
+    ROcp8_57 = ROcp8_55*C7+ROcp8_86*S7
+    ROcp8_67 = ROcp8_96*S7+S5*C7
+    ROcp8_77 = -(ROcp8_45*S7-ROcp8_76*C7)
+    ROcp8_87 = -(ROcp8_55*S7-ROcp8_86*C7)
+    ROcp8_97 = ROcp8_96*C7-S5*S7
     ROcp8_18 = ROcp8_16*C8+ROcp8_47*S8
     ROcp8_28 = ROcp8_26*C8+ROcp8_57*S8
     ROcp8_38 = ROcp8_36*C8+ROcp8_67*S8
@@ -542,9 +542,9 @@ def sensor(sens, s, isens):
     ROcp8_79 = -(ROcp8_48*S9-ROcp8_77*C9)
     ROcp8_89 = -(ROcp8_58*S9-ROcp8_87*C9)
     ROcp8_99 = -(ROcp8_68*S9-ROcp8_97*C9)
-    RLcp8_17 = ROcp8_16*s.dpt[1,1]+ROcp8_46*s.dpt[2,1]+s.dpt[3,1]*S5
-    RLcp8_27 = ROcp8_26*s.dpt[1,1]+ROcp8_56*s.dpt[2,1]+ROcp8_85*s.dpt[3,1]
-    RLcp8_37 = ROcp8_36*s.dpt[1,1]+ROcp8_66*s.dpt[2,1]+ROcp8_95*s.dpt[3,1]
+    RLcp8_17 = ROcp8_16*s.dpt[1,1]+ROcp8_45*s.dpt[2,1]+ROcp8_76*s.dpt[3,1]
+    RLcp8_27 = ROcp8_26*s.dpt[1,1]+ROcp8_55*s.dpt[2,1]+ROcp8_86*s.dpt[3,1]
+    RLcp8_37 = ROcp8_36*s.dpt[1,1]+ROcp8_96*s.dpt[3,1]+s.dpt[2,1]*S5
     OMcp8_17 = OMcp8_16+ROcp8_16*qd[7]
     OMcp8_27 = OMcp8_26+ROcp8_26*qd[7]
     OMcp8_37 = OMcp8_36+ROcp8_36*qd[7]
@@ -554,9 +554,9 @@ def sensor(sens, s, isens):
     OPcp8_17 = OPcp8_16+ROcp8_16*qdd[7]+qd[7]*(OMcp8_26*ROcp8_36-OMcp8_36*ROcp8_26)
     OPcp8_27 = OPcp8_26+ROcp8_26*qdd[7]-qd[7]*(OMcp8_16*ROcp8_36-OMcp8_36*ROcp8_16)
     OPcp8_37 = OPcp8_36+ROcp8_36*qdd[7]+qd[7]*(OMcp8_16*ROcp8_26-OMcp8_26*ROcp8_16)
-    RLcp8_18 = ROcp8_47*s.dpt[2,13]
-    RLcp8_28 = ROcp8_57*s.dpt[2,13]
-    RLcp8_38 = ROcp8_67*s.dpt[2,13]
+    RLcp8_18 = ROcp8_47*s.dpt[2,14]
+    RLcp8_28 = ROcp8_57*s.dpt[2,14]
+    RLcp8_38 = ROcp8_67*s.dpt[2,14]
     POcp8_18 = RLcp8_17+RLcp8_18+q[1]
     POcp8_28 = RLcp8_27+RLcp8_28+q[2]
     POcp8_38 = RLcp8_37+RLcp8_38+q[3]
@@ -623,39 +623,39 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp9_25 = S4*S5
-    ROcp9_35 = -C4*S5
-    ROcp9_85 = -S4*C5
-    ROcp9_95 = C4*C5
-    ROcp9_16 = C5*C6
-    ROcp9_26 = ROcp9_25*C6+C4*S6
-    ROcp9_36 = ROcp9_35*C6+S4*S6
-    ROcp9_46 = -C5*S6
-    ROcp9_56 = -(ROcp9_25*S6-C4*C6)
-    ROcp9_66 = -(ROcp9_35*S6-S4*C6)
-    OMcp9_25 = qd[5]*C4
-    OMcp9_35 = qd[5]*S4
-    OMcp9_16 = qd[4]+qd[6]*S5
-    OMcp9_26 = OMcp9_25+ROcp9_85*qd[6]
-    OMcp9_36 = OMcp9_35+ROcp9_95*qd[6]
-    OPcp9_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp9_26 = ROcp9_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp9_35*S5-ROcp9_95*qd[4])
-    OPcp9_36 = ROcp9_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp9_25*S5-ROcp9_85*qd[4])
+    ROcp9_45 = -S4*C5
+    ROcp9_55 = C4*C5
+    ROcp9_75 = S4*S5
+    ROcp9_85 = -C4*S5
+    ROcp9_16 = -(ROcp9_75*S6-C4*C6)
+    ROcp9_26 = -(ROcp9_85*S6-S4*C6)
+    ROcp9_36 = -C5*S6
+    ROcp9_76 = ROcp9_75*C6+C4*S6
+    ROcp9_86 = ROcp9_85*C6+S4*S6
+    ROcp9_96 = C5*C6
+    OMcp9_15 = qd[5]*C4
+    OMcp9_25 = qd[5]*S4
+    OMcp9_16 = OMcp9_15+ROcp9_45*qd[6]
+    OMcp9_26 = OMcp9_25+ROcp9_55*qd[6]
+    OMcp9_36 = qd[4]+qd[6]*S5
+    OPcp9_16 = ROcp9_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp9_25*S5-ROcp9_55*qd[4])
+    OPcp9_26 = ROcp9_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp9_15*S5-ROcp9_45*qd[4])
+    OPcp9_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_10_0_3 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp9_410 = ROcp9_46*C10+S10*S5
-    ROcp9_510 = ROcp9_56*C10+ROcp9_85*S10
-    ROcp9_610 = ROcp9_66*C10+ROcp9_95*S10
-    ROcp9_710 = -(ROcp9_46*S10-C10*S5)
-    ROcp9_810 = -(ROcp9_56*S10-ROcp9_85*C10)
-    ROcp9_910 = -(ROcp9_66*S10-ROcp9_95*C10)
-    RLcp9_110 = ROcp9_16*s.dpt[1,4]+ROcp9_46*s.dpt[2,4]+s.dpt[3,4]*S5
-    RLcp9_210 = ROcp9_26*s.dpt[1,4]+ROcp9_56*s.dpt[2,4]+ROcp9_85*s.dpt[3,4]
-    RLcp9_310 = ROcp9_36*s.dpt[1,4]+ROcp9_66*s.dpt[2,4]+ROcp9_95*s.dpt[3,4]
+    ROcp9_410 = ROcp9_45*C10+ROcp9_76*S10
+    ROcp9_510 = ROcp9_55*C10+ROcp9_86*S10
+    ROcp9_610 = ROcp9_96*S10+C10*S5
+    ROcp9_710 = -(ROcp9_45*S10-ROcp9_76*C10)
+    ROcp9_810 = -(ROcp9_55*S10-ROcp9_86*C10)
+    ROcp9_910 = ROcp9_96*C10-S10*S5
+    RLcp9_110 = ROcp9_16*s.dpt[1,4]+ROcp9_45*s.dpt[2,4]+ROcp9_76*s.dpt[3,4]
+    RLcp9_210 = ROcp9_26*s.dpt[1,4]+ROcp9_55*s.dpt[2,4]+ROcp9_86*s.dpt[3,4]
+    RLcp9_310 = ROcp9_36*s.dpt[1,4]+ROcp9_96*s.dpt[3,4]+s.dpt[2,4]*S5
     POcp9_110 = RLcp9_110+q[1]
     POcp9_210 = RLcp9_210+q[2]
     POcp9_310 = RLcp9_310+q[3]
@@ -713,45 +713,45 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp10_25 = S4*S5
-    ROcp10_35 = -C4*S5
-    ROcp10_85 = -S4*C5
-    ROcp10_95 = C4*C5
-    ROcp10_16 = C5*C6
-    ROcp10_26 = ROcp10_25*C6+C4*S6
-    ROcp10_36 = ROcp10_35*C6+S4*S6
-    ROcp10_46 = -C5*S6
-    ROcp10_56 = -(ROcp10_25*S6-C4*C6)
-    ROcp10_66 = -(ROcp10_35*S6-S4*C6)
-    OMcp10_25 = qd[5]*C4
-    OMcp10_35 = qd[5]*S4
-    OMcp10_16 = qd[4]+qd[6]*S5
-    OMcp10_26 = OMcp10_25+ROcp10_85*qd[6]
-    OMcp10_36 = OMcp10_35+ROcp10_95*qd[6]
-    OPcp10_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp10_26 = ROcp10_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp10_35*S5-ROcp10_95*qd[4])
-    OPcp10_36 = ROcp10_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp10_25*S5-ROcp10_85*qd[4])
+    ROcp10_45 = -S4*C5
+    ROcp10_55 = C4*C5
+    ROcp10_75 = S4*S5
+    ROcp10_85 = -C4*S5
+    ROcp10_16 = -(ROcp10_75*S6-C4*C6)
+    ROcp10_26 = -(ROcp10_85*S6-S4*C6)
+    ROcp10_36 = -C5*S6
+    ROcp10_76 = ROcp10_75*C6+C4*S6
+    ROcp10_86 = ROcp10_85*C6+S4*S6
+    ROcp10_96 = C5*C6
+    OMcp10_15 = qd[5]*C4
+    OMcp10_25 = qd[5]*S4
+    OMcp10_16 = OMcp10_15+ROcp10_45*qd[6]
+    OMcp10_26 = OMcp10_25+ROcp10_55*qd[6]
+    OMcp10_36 = qd[4]+qd[6]*S5
+    OPcp10_16 = ROcp10_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp10_25*S5-ROcp10_55*qd[4])
+    OPcp10_26 = ROcp10_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp10_15*S5-ROcp10_45*qd[4])
+    OPcp10_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_11_0_3 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp10_410 = ROcp10_46*C10+S10*S5
-    ROcp10_510 = ROcp10_56*C10+ROcp10_85*S10
-    ROcp10_610 = ROcp10_66*C10+ROcp10_95*S10
-    ROcp10_710 = -(ROcp10_46*S10-C10*S5)
-    ROcp10_810 = -(ROcp10_56*S10-ROcp10_85*C10)
-    ROcp10_910 = -(ROcp10_66*S10-ROcp10_95*C10)
+    ROcp10_410 = ROcp10_45*C10+ROcp10_76*S10
+    ROcp10_510 = ROcp10_55*C10+ROcp10_86*S10
+    ROcp10_610 = ROcp10_96*S10+C10*S5
+    ROcp10_710 = -(ROcp10_45*S10-ROcp10_76*C10)
+    ROcp10_810 = -(ROcp10_55*S10-ROcp10_86*C10)
+    ROcp10_910 = ROcp10_96*C10-S10*S5
     ROcp10_111 = ROcp10_16*C11+ROcp10_410*S11
     ROcp10_211 = ROcp10_26*C11+ROcp10_510*S11
     ROcp10_311 = ROcp10_36*C11+ROcp10_610*S11
     ROcp10_411 = -(ROcp10_16*S11-ROcp10_410*C11)
     ROcp10_511 = -(ROcp10_26*S11-ROcp10_510*C11)
     ROcp10_611 = -(ROcp10_36*S11-ROcp10_610*C11)
-    RLcp10_110 = ROcp10_16*s.dpt[1,4]+ROcp10_46*s.dpt[2,4]+s.dpt[3,4]*S5
-    RLcp10_210 = ROcp10_26*s.dpt[1,4]+ROcp10_56*s.dpt[2,4]+ROcp10_85*s.dpt[3,4]
-    RLcp10_310 = ROcp10_36*s.dpt[1,4]+ROcp10_66*s.dpt[2,4]+ROcp10_95*s.dpt[3,4]
+    RLcp10_110 = ROcp10_16*s.dpt[1,4]+ROcp10_45*s.dpt[2,4]+ROcp10_76*s.dpt[3,4]
+    RLcp10_210 = ROcp10_26*s.dpt[1,4]+ROcp10_55*s.dpt[2,4]+ROcp10_86*s.dpt[3,4]
+    RLcp10_310 = ROcp10_36*s.dpt[1,4]+ROcp10_96*s.dpt[3,4]+s.dpt[2,4]*S5
     OMcp10_110 = OMcp10_16+ROcp10_16*qd[10]
     OMcp10_210 = OMcp10_26+ROcp10_26*qd[10]
     OMcp10_310 = OMcp10_36+ROcp10_36*qd[10]
@@ -761,9 +761,9 @@ def sensor(sens, s, isens):
     OPcp10_110 = OPcp10_16+ROcp10_16*qdd[10]+qd[10]*(OMcp10_26*ROcp10_36-OMcp10_36*ROcp10_26)
     OPcp10_210 = OPcp10_26+ROcp10_26*qdd[10]-qd[10]*(OMcp10_16*ROcp10_36-OMcp10_36*ROcp10_16)
     OPcp10_310 = OPcp10_36+ROcp10_36*qdd[10]+qd[10]*(OMcp10_16*ROcp10_26-OMcp10_26*ROcp10_16)
-    RLcp10_111 = ROcp10_410*s.dpt[2,17]
-    RLcp10_211 = ROcp10_510*s.dpt[2,17]
-    RLcp10_311 = ROcp10_610*s.dpt[2,17]
+    RLcp10_111 = ROcp10_410*s.dpt[2,19]
+    RLcp10_211 = ROcp10_510*s.dpt[2,19]
+    RLcp10_311 = ROcp10_610*s.dpt[2,19]
     POcp10_111 = RLcp10_110+RLcp10_111+q[1]
     POcp10_211 = RLcp10_210+RLcp10_211+q[2]
     POcp10_311 = RLcp10_310+RLcp10_311+q[3]
@@ -824,36 +824,36 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp11_25 = S4*S5
-    ROcp11_35 = -C4*S5
-    ROcp11_85 = -S4*C5
-    ROcp11_95 = C4*C5
-    ROcp11_16 = C5*C6
-    ROcp11_26 = ROcp11_25*C6+C4*S6
-    ROcp11_36 = ROcp11_35*C6+S4*S6
-    ROcp11_46 = -C5*S6
-    ROcp11_56 = -(ROcp11_25*S6-C4*C6)
-    ROcp11_66 = -(ROcp11_35*S6-S4*C6)
-    OMcp11_25 = qd[5]*C4
-    OMcp11_35 = qd[5]*S4
-    OMcp11_16 = qd[4]+qd[6]*S5
-    OMcp11_26 = OMcp11_25+ROcp11_85*qd[6]
-    OMcp11_36 = OMcp11_35+ROcp11_95*qd[6]
-    OPcp11_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp11_26 = ROcp11_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp11_35*S5-ROcp11_95*qd[4])
-    OPcp11_36 = ROcp11_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp11_25*S5-ROcp11_85*qd[4])
+    ROcp11_45 = -S4*C5
+    ROcp11_55 = C4*C5
+    ROcp11_75 = S4*S5
+    ROcp11_85 = -C4*S5
+    ROcp11_16 = -(ROcp11_75*S6-C4*C6)
+    ROcp11_26 = -(ROcp11_85*S6-S4*C6)
+    ROcp11_36 = -C5*S6
+    ROcp11_76 = ROcp11_75*C6+C4*S6
+    ROcp11_86 = ROcp11_85*C6+S4*S6
+    ROcp11_96 = C5*C6
+    OMcp11_15 = qd[5]*C4
+    OMcp11_25 = qd[5]*S4
+    OMcp11_16 = OMcp11_15+ROcp11_45*qd[6]
+    OMcp11_26 = OMcp11_25+ROcp11_55*qd[6]
+    OMcp11_36 = qd[4]+qd[6]*S5
+    OPcp11_16 = ROcp11_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp11_25*S5-ROcp11_55*qd[4])
+    OPcp11_26 = ROcp11_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp11_15*S5-ROcp11_45*qd[4])
+    OPcp11_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_12_0_3 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp11_410 = ROcp11_46*C10+S10*S5
-    ROcp11_510 = ROcp11_56*C10+ROcp11_85*S10
-    ROcp11_610 = ROcp11_66*C10+ROcp11_95*S10
-    ROcp11_710 = -(ROcp11_46*S10-C10*S5)
-    ROcp11_810 = -(ROcp11_56*S10-ROcp11_85*C10)
-    ROcp11_910 = -(ROcp11_66*S10-ROcp11_95*C10)
+    ROcp11_410 = ROcp11_45*C10+ROcp11_76*S10
+    ROcp11_510 = ROcp11_55*C10+ROcp11_86*S10
+    ROcp11_610 = ROcp11_96*S10+C10*S5
+    ROcp11_710 = -(ROcp11_45*S10-ROcp11_76*C10)
+    ROcp11_810 = -(ROcp11_55*S10-ROcp11_86*C10)
+    ROcp11_910 = ROcp11_96*C10-S10*S5
     ROcp11_111 = ROcp11_16*C11+ROcp11_410*S11
     ROcp11_211 = ROcp11_26*C11+ROcp11_510*S11
     ROcp11_311 = ROcp11_36*C11+ROcp11_610*S11
@@ -866,9 +866,9 @@ def sensor(sens, s, isens):
     ROcp11_712 = -(ROcp11_411*S12-ROcp11_710*C12)
     ROcp11_812 = -(ROcp11_511*S12-ROcp11_810*C12)
     ROcp11_912 = -(ROcp11_611*S12-ROcp11_910*C12)
-    RLcp11_110 = ROcp11_16*s.dpt[1,4]+ROcp11_46*s.dpt[2,4]+s.dpt[3,4]*S5
-    RLcp11_210 = ROcp11_26*s.dpt[1,4]+ROcp11_56*s.dpt[2,4]+ROcp11_85*s.dpt[3,4]
-    RLcp11_310 = ROcp11_36*s.dpt[1,4]+ROcp11_66*s.dpt[2,4]+ROcp11_95*s.dpt[3,4]
+    RLcp11_110 = ROcp11_16*s.dpt[1,4]+ROcp11_45*s.dpt[2,4]+ROcp11_76*s.dpt[3,4]
+    RLcp11_210 = ROcp11_26*s.dpt[1,4]+ROcp11_55*s.dpt[2,4]+ROcp11_86*s.dpt[3,4]
+    RLcp11_310 = ROcp11_36*s.dpt[1,4]+ROcp11_96*s.dpt[3,4]+s.dpt[2,4]*S5
     OMcp11_110 = OMcp11_16+ROcp11_16*qd[10]
     OMcp11_210 = OMcp11_26+ROcp11_26*qd[10]
     OMcp11_310 = OMcp11_36+ROcp11_36*qd[10]
@@ -878,9 +878,9 @@ def sensor(sens, s, isens):
     OPcp11_110 = OPcp11_16+ROcp11_16*qdd[10]+qd[10]*(OMcp11_26*ROcp11_36-OMcp11_36*ROcp11_26)
     OPcp11_210 = OPcp11_26+ROcp11_26*qdd[10]-qd[10]*(OMcp11_16*ROcp11_36-OMcp11_36*ROcp11_16)
     OPcp11_310 = OPcp11_36+ROcp11_36*qdd[10]+qd[10]*(OMcp11_16*ROcp11_26-OMcp11_26*ROcp11_16)
-    RLcp11_111 = ROcp11_410*s.dpt[2,17]
-    RLcp11_211 = ROcp11_510*s.dpt[2,17]
-    RLcp11_311 = ROcp11_610*s.dpt[2,17]
+    RLcp11_111 = ROcp11_410*s.dpt[2,19]
+    RLcp11_211 = ROcp11_510*s.dpt[2,19]
+    RLcp11_311 = ROcp11_610*s.dpt[2,19]
     POcp11_111 = RLcp11_110+RLcp11_111+q[1]
     POcp11_211 = RLcp11_210+RLcp11_211+q[2]
     POcp11_311 = RLcp11_310+RLcp11_311+q[3]
@@ -947,39 +947,39 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp12_25 = S4*S5
-    ROcp12_35 = -C4*S5
-    ROcp12_85 = -S4*C5
-    ROcp12_95 = C4*C5
-    ROcp12_16 = C5*C6
-    ROcp12_26 = ROcp12_25*C6+C4*S6
-    ROcp12_36 = ROcp12_35*C6+S4*S6
-    ROcp12_46 = -C5*S6
-    ROcp12_56 = -(ROcp12_25*S6-C4*C6)
-    ROcp12_66 = -(ROcp12_35*S6-S4*C6)
-    OMcp12_25 = qd[5]*C4
-    OMcp12_35 = qd[5]*S4
-    OMcp12_16 = qd[4]+qd[6]*S5
-    OMcp12_26 = OMcp12_25+ROcp12_85*qd[6]
-    OMcp12_36 = OMcp12_35+ROcp12_95*qd[6]
-    OPcp12_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp12_26 = ROcp12_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp12_35*S5-ROcp12_95*qd[4])
-    OPcp12_36 = ROcp12_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp12_25*S5-ROcp12_85*qd[4])
+    ROcp12_45 = -S4*C5
+    ROcp12_55 = C4*C5
+    ROcp12_75 = S4*S5
+    ROcp12_85 = -C4*S5
+    ROcp12_16 = -(ROcp12_75*S6-C4*C6)
+    ROcp12_26 = -(ROcp12_85*S6-S4*C6)
+    ROcp12_36 = -C5*S6
+    ROcp12_76 = ROcp12_75*C6+C4*S6
+    ROcp12_86 = ROcp12_85*C6+S4*S6
+    ROcp12_96 = C5*C6
+    OMcp12_15 = qd[5]*C4
+    OMcp12_25 = qd[5]*S4
+    OMcp12_16 = OMcp12_15+ROcp12_45*qd[6]
+    OMcp12_26 = OMcp12_25+ROcp12_55*qd[6]
+    OMcp12_36 = qd[4]+qd[6]*S5
+    OPcp12_16 = ROcp12_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp12_25*S5-ROcp12_55*qd[4])
+    OPcp12_26 = ROcp12_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp12_15*S5-ROcp12_45*qd[4])
+    OPcp12_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_13_0_4 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp12_413 = ROcp12_46*C13+S13*S5
-    ROcp12_513 = ROcp12_56*C13+ROcp12_85*S13
-    ROcp12_613 = ROcp12_66*C13+ROcp12_95*S13
-    ROcp12_713 = -(ROcp12_46*S13-C13*S5)
-    ROcp12_813 = -(ROcp12_56*S13-ROcp12_85*C13)
-    ROcp12_913 = -(ROcp12_66*S13-ROcp12_95*C13)
-    RLcp12_113 = ROcp12_16*s.dpt[1,9]+ROcp12_46*s.dpt[2,9]+s.dpt[3,9]*S5
-    RLcp12_213 = ROcp12_26*s.dpt[1,9]+ROcp12_56*s.dpt[2,9]+ROcp12_85*s.dpt[3,9]
-    RLcp12_313 = ROcp12_36*s.dpt[1,9]+ROcp12_66*s.dpt[2,9]+ROcp12_95*s.dpt[3,9]
+    ROcp12_413 = ROcp12_45*C13+ROcp12_76*S13
+    ROcp12_513 = ROcp12_55*C13+ROcp12_86*S13
+    ROcp12_613 = ROcp12_96*S13+C13*S5
+    ROcp12_713 = -(ROcp12_45*S13-ROcp12_76*C13)
+    ROcp12_813 = -(ROcp12_55*S13-ROcp12_86*C13)
+    ROcp12_913 = ROcp12_96*C13-S13*S5
+    RLcp12_113 = ROcp12_16*s.dpt[1,9]+ROcp12_45*s.dpt[2,9]+ROcp12_76*s.dpt[3,9]
+    RLcp12_213 = ROcp12_26*s.dpt[1,9]+ROcp12_55*s.dpt[2,9]+ROcp12_86*s.dpt[3,9]
+    RLcp12_313 = ROcp12_36*s.dpt[1,9]+ROcp12_96*s.dpt[3,9]+s.dpt[2,9]*S5
     POcp12_113 = RLcp12_113+q[1]
     POcp12_213 = RLcp12_213+q[2]
     POcp12_313 = RLcp12_313+q[3]
@@ -1037,45 +1037,45 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp13_25 = S4*S5
-    ROcp13_35 = -C4*S5
-    ROcp13_85 = -S4*C5
-    ROcp13_95 = C4*C5
-    ROcp13_16 = C5*C6
-    ROcp13_26 = ROcp13_25*C6+C4*S6
-    ROcp13_36 = ROcp13_35*C6+S4*S6
-    ROcp13_46 = -C5*S6
-    ROcp13_56 = -(ROcp13_25*S6-C4*C6)
-    ROcp13_66 = -(ROcp13_35*S6-S4*C6)
-    OMcp13_25 = qd[5]*C4
-    OMcp13_35 = qd[5]*S4
-    OMcp13_16 = qd[4]+qd[6]*S5
-    OMcp13_26 = OMcp13_25+ROcp13_85*qd[6]
-    OMcp13_36 = OMcp13_35+ROcp13_95*qd[6]
-    OPcp13_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp13_26 = ROcp13_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp13_35*S5-ROcp13_95*qd[4])
-    OPcp13_36 = ROcp13_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp13_25*S5-ROcp13_85*qd[4])
+    ROcp13_45 = -S4*C5
+    ROcp13_55 = C4*C5
+    ROcp13_75 = S4*S5
+    ROcp13_85 = -C4*S5
+    ROcp13_16 = -(ROcp13_75*S6-C4*C6)
+    ROcp13_26 = -(ROcp13_85*S6-S4*C6)
+    ROcp13_36 = -C5*S6
+    ROcp13_76 = ROcp13_75*C6+C4*S6
+    ROcp13_86 = ROcp13_85*C6+S4*S6
+    ROcp13_96 = C5*C6
+    OMcp13_15 = qd[5]*C4
+    OMcp13_25 = qd[5]*S4
+    OMcp13_16 = OMcp13_15+ROcp13_45*qd[6]
+    OMcp13_26 = OMcp13_25+ROcp13_55*qd[6]
+    OMcp13_36 = qd[4]+qd[6]*S5
+    OPcp13_16 = ROcp13_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp13_25*S5-ROcp13_55*qd[4])
+    OPcp13_26 = ROcp13_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp13_15*S5-ROcp13_45*qd[4])
+    OPcp13_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_14_0_4 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp13_413 = ROcp13_46*C13+S13*S5
-    ROcp13_513 = ROcp13_56*C13+ROcp13_85*S13
-    ROcp13_613 = ROcp13_66*C13+ROcp13_95*S13
-    ROcp13_713 = -(ROcp13_46*S13-C13*S5)
-    ROcp13_813 = -(ROcp13_56*S13-ROcp13_85*C13)
-    ROcp13_913 = -(ROcp13_66*S13-ROcp13_95*C13)
+    ROcp13_413 = ROcp13_45*C13+ROcp13_76*S13
+    ROcp13_513 = ROcp13_55*C13+ROcp13_86*S13
+    ROcp13_613 = ROcp13_96*S13+C13*S5
+    ROcp13_713 = -(ROcp13_45*S13-ROcp13_76*C13)
+    ROcp13_813 = -(ROcp13_55*S13-ROcp13_86*C13)
+    ROcp13_913 = ROcp13_96*C13-S13*S5
     ROcp13_414 = ROcp13_413*C14+ROcp13_713*S14
     ROcp13_514 = ROcp13_513*C14+ROcp13_813*S14
     ROcp13_614 = ROcp13_613*C14+ROcp13_913*S14
     ROcp13_714 = -(ROcp13_413*S14-ROcp13_713*C14)
     ROcp13_814 = -(ROcp13_513*S14-ROcp13_813*C14)
     ROcp13_914 = -(ROcp13_613*S14-ROcp13_913*C14)
-    RLcp13_113 = ROcp13_16*s.dpt[1,9]+ROcp13_46*s.dpt[2,9]+s.dpt[3,9]*S5
-    RLcp13_213 = ROcp13_26*s.dpt[1,9]+ROcp13_56*s.dpt[2,9]+ROcp13_85*s.dpt[3,9]
-    RLcp13_313 = ROcp13_36*s.dpt[1,9]+ROcp13_66*s.dpt[2,9]+ROcp13_95*s.dpt[3,9]
+    RLcp13_113 = ROcp13_16*s.dpt[1,9]+ROcp13_45*s.dpt[2,9]+ROcp13_76*s.dpt[3,9]
+    RLcp13_213 = ROcp13_26*s.dpt[1,9]+ROcp13_55*s.dpt[2,9]+ROcp13_86*s.dpt[3,9]
+    RLcp13_313 = ROcp13_36*s.dpt[1,9]+ROcp13_96*s.dpt[3,9]+s.dpt[2,9]*S5
     OMcp13_113 = OMcp13_16+ROcp13_16*qd[13]
     OMcp13_213 = OMcp13_26+ROcp13_26*qd[13]
     OMcp13_313 = OMcp13_36+ROcp13_36*qd[13]
@@ -1085,9 +1085,9 @@ def sensor(sens, s, isens):
     OPcp13_113 = OPcp13_16+ROcp13_16*qdd[13]+qd[13]*(OMcp13_26*ROcp13_36-OMcp13_36*ROcp13_26)
     OPcp13_213 = OPcp13_26+ROcp13_26*qdd[13]-qd[13]*(OMcp13_16*ROcp13_36-OMcp13_36*ROcp13_16)
     OPcp13_313 = OPcp13_36+ROcp13_36*qdd[13]+qd[13]*(OMcp13_16*ROcp13_26-OMcp13_26*ROcp13_16)
-    RLcp13_114 = ROcp13_413*s.dpt[2,21]
-    RLcp13_214 = ROcp13_513*s.dpt[2,21]
-    RLcp13_314 = ROcp13_613*s.dpt[2,21]
+    RLcp13_114 = ROcp13_413*s.dpt[2,24]
+    RLcp13_214 = ROcp13_513*s.dpt[2,24]
+    RLcp13_314 = ROcp13_613*s.dpt[2,24]
     POcp13_114 = RLcp13_113+RLcp13_114+q[1]
     POcp13_214 = RLcp13_213+RLcp13_214+q[2]
     POcp13_314 = RLcp13_313+RLcp13_314+q[3]
@@ -1148,36 +1148,36 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp14_25 = S4*S5
-    ROcp14_35 = -C4*S5
-    ROcp14_85 = -S4*C5
-    ROcp14_95 = C4*C5
-    ROcp14_16 = C5*C6
-    ROcp14_26 = ROcp14_25*C6+C4*S6
-    ROcp14_36 = ROcp14_35*C6+S4*S6
-    ROcp14_46 = -C5*S6
-    ROcp14_56 = -(ROcp14_25*S6-C4*C6)
-    ROcp14_66 = -(ROcp14_35*S6-S4*C6)
-    OMcp14_25 = qd[5]*C4
-    OMcp14_35 = qd[5]*S4
-    OMcp14_16 = qd[4]+qd[6]*S5
-    OMcp14_26 = OMcp14_25+ROcp14_85*qd[6]
-    OMcp14_36 = OMcp14_35+ROcp14_95*qd[6]
-    OPcp14_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp14_26 = ROcp14_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp14_35*S5-ROcp14_95*qd[4])
-    OPcp14_36 = ROcp14_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp14_25*S5-ROcp14_85*qd[4])
+    ROcp14_45 = -S4*C5
+    ROcp14_55 = C4*C5
+    ROcp14_75 = S4*S5
+    ROcp14_85 = -C4*S5
+    ROcp14_16 = -(ROcp14_75*S6-C4*C6)
+    ROcp14_26 = -(ROcp14_85*S6-S4*C6)
+    ROcp14_36 = -C5*S6
+    ROcp14_76 = ROcp14_75*C6+C4*S6
+    ROcp14_86 = ROcp14_85*C6+S4*S6
+    ROcp14_96 = C5*C6
+    OMcp14_15 = qd[5]*C4
+    OMcp14_25 = qd[5]*S4
+    OMcp14_16 = OMcp14_15+ROcp14_45*qd[6]
+    OMcp14_26 = OMcp14_25+ROcp14_55*qd[6]
+    OMcp14_36 = qd[4]+qd[6]*S5
+    OPcp14_16 = ROcp14_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp14_25*S5-ROcp14_55*qd[4])
+    OPcp14_26 = ROcp14_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp14_15*S5-ROcp14_45*qd[4])
+    OPcp14_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_15_0_4 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp14_413 = ROcp14_46*C13+S13*S5
-    ROcp14_513 = ROcp14_56*C13+ROcp14_85*S13
-    ROcp14_613 = ROcp14_66*C13+ROcp14_95*S13
-    ROcp14_713 = -(ROcp14_46*S13-C13*S5)
-    ROcp14_813 = -(ROcp14_56*S13-ROcp14_85*C13)
-    ROcp14_913 = -(ROcp14_66*S13-ROcp14_95*C13)
+    ROcp14_413 = ROcp14_45*C13+ROcp14_76*S13
+    ROcp14_513 = ROcp14_55*C13+ROcp14_86*S13
+    ROcp14_613 = ROcp14_96*S13+C13*S5
+    ROcp14_713 = -(ROcp14_45*S13-ROcp14_76*C13)
+    ROcp14_813 = -(ROcp14_55*S13-ROcp14_86*C13)
+    ROcp14_913 = ROcp14_96*C13-S13*S5
     ROcp14_414 = ROcp14_413*C14+ROcp14_713*S14
     ROcp14_514 = ROcp14_513*C14+ROcp14_813*S14
     ROcp14_614 = ROcp14_613*C14+ROcp14_913*S14
@@ -1190,9 +1190,9 @@ def sensor(sens, s, isens):
     ROcp14_715 = -(ROcp14_414*S15-ROcp14_714*C15)
     ROcp14_815 = -(ROcp14_514*S15-ROcp14_814*C15)
     ROcp14_915 = -(ROcp14_614*S15-ROcp14_914*C15)
-    RLcp14_113 = ROcp14_16*s.dpt[1,9]+ROcp14_46*s.dpt[2,9]+s.dpt[3,9]*S5
-    RLcp14_213 = ROcp14_26*s.dpt[1,9]+ROcp14_56*s.dpt[2,9]+ROcp14_85*s.dpt[3,9]
-    RLcp14_313 = ROcp14_36*s.dpt[1,9]+ROcp14_66*s.dpt[2,9]+ROcp14_95*s.dpt[3,9]
+    RLcp14_113 = ROcp14_16*s.dpt[1,9]+ROcp14_45*s.dpt[2,9]+ROcp14_76*s.dpt[3,9]
+    RLcp14_213 = ROcp14_26*s.dpt[1,9]+ROcp14_55*s.dpt[2,9]+ROcp14_86*s.dpt[3,9]
+    RLcp14_313 = ROcp14_36*s.dpt[1,9]+ROcp14_96*s.dpt[3,9]+s.dpt[2,9]*S5
     OMcp14_113 = OMcp14_16+ROcp14_16*qd[13]
     OMcp14_213 = OMcp14_26+ROcp14_26*qd[13]
     OMcp14_313 = OMcp14_36+ROcp14_36*qd[13]
@@ -1202,9 +1202,9 @@ def sensor(sens, s, isens):
     OPcp14_113 = OPcp14_16+ROcp14_16*qdd[13]+qd[13]*(OMcp14_26*ROcp14_36-OMcp14_36*ROcp14_26)
     OPcp14_213 = OPcp14_26+ROcp14_26*qdd[13]-qd[13]*(OMcp14_16*ROcp14_36-OMcp14_36*ROcp14_16)
     OPcp14_313 = OPcp14_36+ROcp14_36*qdd[13]+qd[13]*(OMcp14_16*ROcp14_26-OMcp14_26*ROcp14_16)
-    RLcp14_114 = ROcp14_413*s.dpt[2,21]
-    RLcp14_214 = ROcp14_513*s.dpt[2,21]
-    RLcp14_314 = ROcp14_613*s.dpt[2,21]
+    RLcp14_114 = ROcp14_413*s.dpt[2,24]
+    RLcp14_214 = ROcp14_513*s.dpt[2,24]
+    RLcp14_314 = ROcp14_613*s.dpt[2,24]
     OMcp14_114 = OMcp14_113+ROcp14_16*qd[14]
     OMcp14_214 = OMcp14_213+ROcp14_26*qd[14]
     OMcp14_314 = OMcp14_313+ROcp14_36*qd[14]
@@ -1214,9 +1214,9 @@ def sensor(sens, s, isens):
     OPcp14_114 = OPcp14_113+ROcp14_16*qdd[14]+qd[14]*(OMcp14_213*ROcp14_36-OMcp14_313*ROcp14_26)
     OPcp14_214 = OPcp14_213+ROcp14_26*qdd[14]-qd[14]*(OMcp14_113*ROcp14_36-OMcp14_313*ROcp14_16)
     OPcp14_314 = OPcp14_313+ROcp14_36*qdd[14]+qd[14]*(OMcp14_113*ROcp14_26-OMcp14_213*ROcp14_16)
-    RLcp14_115 = ROcp14_16*s.dpt[1,23]
-    RLcp14_215 = ROcp14_26*s.dpt[1,23]
-    RLcp14_315 = ROcp14_36*s.dpt[1,23]
+    RLcp14_115 = ROcp14_16*s.dpt[1,26]
+    RLcp14_215 = ROcp14_26*s.dpt[1,26]
+    RLcp14_315 = ROcp14_36*s.dpt[1,26]
     POcp14_115 = RLcp14_113+RLcp14_114+RLcp14_115+q[1]
     POcp14_215 = RLcp14_213+RLcp14_214+RLcp14_215+q[2]
     POcp14_315 = RLcp14_313+RLcp14_314+RLcp14_315+q[3]
@@ -1280,39 +1280,39 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp15_25 = S4*S5
-    ROcp15_35 = -C4*S5
-    ROcp15_85 = -S4*C5
-    ROcp15_95 = C4*C5
-    ROcp15_16 = C5*C6
-    ROcp15_26 = ROcp15_25*C6+C4*S6
-    ROcp15_36 = ROcp15_35*C6+S4*S6
-    ROcp15_46 = -C5*S6
-    ROcp15_56 = -(ROcp15_25*S6-C4*C6)
-    ROcp15_66 = -(ROcp15_35*S6-S4*C6)
-    OMcp15_25 = qd[5]*C4
-    OMcp15_35 = qd[5]*S4
-    OMcp15_16 = qd[4]+qd[6]*S5
-    OMcp15_26 = OMcp15_25+ROcp15_85*qd[6]
-    OMcp15_36 = OMcp15_35+ROcp15_95*qd[6]
-    OPcp15_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp15_26 = ROcp15_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp15_35*S5-ROcp15_95*qd[4])
-    OPcp15_36 = ROcp15_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp15_25*S5-ROcp15_85*qd[4])
+    ROcp15_45 = -S4*C5
+    ROcp15_55 = C4*C5
+    ROcp15_75 = S4*S5
+    ROcp15_85 = -C4*S5
+    ROcp15_16 = -(ROcp15_75*S6-C4*C6)
+    ROcp15_26 = -(ROcp15_85*S6-S4*C6)
+    ROcp15_36 = -C5*S6
+    ROcp15_76 = ROcp15_75*C6+C4*S6
+    ROcp15_86 = ROcp15_85*C6+S4*S6
+    ROcp15_96 = C5*C6
+    OMcp15_15 = qd[5]*C4
+    OMcp15_25 = qd[5]*S4
+    OMcp15_16 = OMcp15_15+ROcp15_45*qd[6]
+    OMcp15_26 = OMcp15_25+ROcp15_55*qd[6]
+    OMcp15_36 = qd[4]+qd[6]*S5
+    OPcp15_16 = ROcp15_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp15_25*S5-ROcp15_55*qd[4])
+    OPcp15_26 = ROcp15_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp15_15*S5-ROcp15_45*qd[4])
+    OPcp15_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_16_0_5 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp15_416 = ROcp15_46*C16+S16*S5
-    ROcp15_516 = ROcp15_56*C16+ROcp15_85*S16
-    ROcp15_616 = ROcp15_66*C16+ROcp15_95*S16
-    ROcp15_716 = -(ROcp15_46*S16-C16*S5)
-    ROcp15_816 = -(ROcp15_56*S16-ROcp15_85*C16)
-    ROcp15_916 = -(ROcp15_66*S16-ROcp15_95*C16)
-    RLcp15_116 = ROcp15_16*s.dpt[1,11]+ROcp15_46*s.dpt[2,11]+s.dpt[3,11]*S5
-    RLcp15_216 = ROcp15_26*s.dpt[1,11]+ROcp15_56*s.dpt[2,11]+ROcp15_85*s.dpt[3,11]
-    RLcp15_316 = ROcp15_36*s.dpt[1,11]+ROcp15_66*s.dpt[2,11]+ROcp15_95*s.dpt[3,11]
+    ROcp15_416 = ROcp15_45*C16+ROcp15_76*S16
+    ROcp15_516 = ROcp15_55*C16+ROcp15_86*S16
+    ROcp15_616 = ROcp15_96*S16+C16*S5
+    ROcp15_716 = -(ROcp15_45*S16-ROcp15_76*C16)
+    ROcp15_816 = -(ROcp15_55*S16-ROcp15_86*C16)
+    ROcp15_916 = ROcp15_96*C16-S16*S5
+    RLcp15_116 = ROcp15_16*s.dpt[1,11]+ROcp15_45*s.dpt[2,11]+ROcp15_76*s.dpt[3,11]
+    RLcp15_216 = ROcp15_26*s.dpt[1,11]+ROcp15_55*s.dpt[2,11]+ROcp15_86*s.dpt[3,11]
+    RLcp15_316 = ROcp15_36*s.dpt[1,11]+ROcp15_96*s.dpt[3,11]+s.dpt[2,11]*S5
     POcp15_116 = RLcp15_116+q[1]
     POcp15_216 = RLcp15_216+q[2]
     POcp15_316 = RLcp15_316+q[3]
@@ -1370,45 +1370,45 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp16_25 = S4*S5
-    ROcp16_35 = -C4*S5
-    ROcp16_85 = -S4*C5
-    ROcp16_95 = C4*C5
-    ROcp16_16 = C5*C6
-    ROcp16_26 = ROcp16_25*C6+C4*S6
-    ROcp16_36 = ROcp16_35*C6+S4*S6
-    ROcp16_46 = -C5*S6
-    ROcp16_56 = -(ROcp16_25*S6-C4*C6)
-    ROcp16_66 = -(ROcp16_35*S6-S4*C6)
-    OMcp16_25 = qd[5]*C4
-    OMcp16_35 = qd[5]*S4
-    OMcp16_16 = qd[4]+qd[6]*S5
-    OMcp16_26 = OMcp16_25+ROcp16_85*qd[6]
-    OMcp16_36 = OMcp16_35+ROcp16_95*qd[6]
-    OPcp16_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp16_26 = ROcp16_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp16_35*S5-ROcp16_95*qd[4])
-    OPcp16_36 = ROcp16_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp16_25*S5-ROcp16_85*qd[4])
+    ROcp16_45 = -S4*C5
+    ROcp16_55 = C4*C5
+    ROcp16_75 = S4*S5
+    ROcp16_85 = -C4*S5
+    ROcp16_16 = -(ROcp16_75*S6-C4*C6)
+    ROcp16_26 = -(ROcp16_85*S6-S4*C6)
+    ROcp16_36 = -C5*S6
+    ROcp16_76 = ROcp16_75*C6+C4*S6
+    ROcp16_86 = ROcp16_85*C6+S4*S6
+    ROcp16_96 = C5*C6
+    OMcp16_15 = qd[5]*C4
+    OMcp16_25 = qd[5]*S4
+    OMcp16_16 = OMcp16_15+ROcp16_45*qd[6]
+    OMcp16_26 = OMcp16_25+ROcp16_55*qd[6]
+    OMcp16_36 = qd[4]+qd[6]*S5
+    OPcp16_16 = ROcp16_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp16_25*S5-ROcp16_55*qd[4])
+    OPcp16_26 = ROcp16_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp16_15*S5-ROcp16_45*qd[4])
+    OPcp16_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_17_0_5 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp16_416 = ROcp16_46*C16+S16*S5
-    ROcp16_516 = ROcp16_56*C16+ROcp16_85*S16
-    ROcp16_616 = ROcp16_66*C16+ROcp16_95*S16
-    ROcp16_716 = -(ROcp16_46*S16-C16*S5)
-    ROcp16_816 = -(ROcp16_56*S16-ROcp16_85*C16)
-    ROcp16_916 = -(ROcp16_66*S16-ROcp16_95*C16)
+    ROcp16_416 = ROcp16_45*C16+ROcp16_76*S16
+    ROcp16_516 = ROcp16_55*C16+ROcp16_86*S16
+    ROcp16_616 = ROcp16_96*S16+C16*S5
+    ROcp16_716 = -(ROcp16_45*S16-ROcp16_76*C16)
+    ROcp16_816 = -(ROcp16_55*S16-ROcp16_86*C16)
+    ROcp16_916 = ROcp16_96*C16-S16*S5
     ROcp16_417 = ROcp16_416*C17+ROcp16_716*S17
     ROcp16_517 = ROcp16_516*C17+ROcp16_816*S17
     ROcp16_617 = ROcp16_616*C17+ROcp16_916*S17
     ROcp16_717 = -(ROcp16_416*S17-ROcp16_716*C17)
     ROcp16_817 = -(ROcp16_516*S17-ROcp16_816*C17)
     ROcp16_917 = -(ROcp16_616*S17-ROcp16_916*C17)
-    RLcp16_116 = ROcp16_16*s.dpt[1,11]+ROcp16_46*s.dpt[2,11]+s.dpt[3,11]*S5
-    RLcp16_216 = ROcp16_26*s.dpt[1,11]+ROcp16_56*s.dpt[2,11]+ROcp16_85*s.dpt[3,11]
-    RLcp16_316 = ROcp16_36*s.dpt[1,11]+ROcp16_66*s.dpt[2,11]+ROcp16_95*s.dpt[3,11]
+    RLcp16_116 = ROcp16_16*s.dpt[1,11]+ROcp16_45*s.dpt[2,11]+ROcp16_76*s.dpt[3,11]
+    RLcp16_216 = ROcp16_26*s.dpt[1,11]+ROcp16_55*s.dpt[2,11]+ROcp16_86*s.dpt[3,11]
+    RLcp16_316 = ROcp16_36*s.dpt[1,11]+ROcp16_96*s.dpt[3,11]+s.dpt[2,11]*S5
     OMcp16_116 = OMcp16_16+ROcp16_16*qd[16]
     OMcp16_216 = OMcp16_26+ROcp16_26*qd[16]
     OMcp16_316 = OMcp16_36+ROcp16_36*qd[16]
@@ -1418,9 +1418,9 @@ def sensor(sens, s, isens):
     OPcp16_116 = OPcp16_16+ROcp16_16*qdd[16]+qd[16]*(OMcp16_26*ROcp16_36-OMcp16_36*ROcp16_26)
     OPcp16_216 = OPcp16_26+ROcp16_26*qdd[16]-qd[16]*(OMcp16_16*ROcp16_36-OMcp16_36*ROcp16_16)
     OPcp16_316 = OPcp16_36+ROcp16_36*qdd[16]+qd[16]*(OMcp16_16*ROcp16_26-OMcp16_26*ROcp16_16)
-    RLcp16_117 = ROcp16_416*s.dpt[2,27]
-    RLcp16_217 = ROcp16_516*s.dpt[2,27]
-    RLcp16_317 = ROcp16_616*s.dpt[2,27]
+    RLcp16_117 = ROcp16_416*s.dpt[2,30]
+    RLcp16_217 = ROcp16_516*s.dpt[2,30]
+    RLcp16_317 = ROcp16_616*s.dpt[2,30]
     POcp16_117 = RLcp16_116+RLcp16_117+q[1]
     POcp16_217 = RLcp16_216+RLcp16_217+q[2]
     POcp16_317 = RLcp16_316+RLcp16_317+q[3]
@@ -1481,36 +1481,36 @@ def sensor(sens, s, isens):
 # Sensor Kinematics 
 
 
-    ROcp17_25 = S4*S5
-    ROcp17_35 = -C4*S5
-    ROcp17_85 = -S4*C5
-    ROcp17_95 = C4*C5
-    ROcp17_16 = C5*C6
-    ROcp17_26 = ROcp17_25*C6+C4*S6
-    ROcp17_36 = ROcp17_35*C6+S4*S6
-    ROcp17_46 = -C5*S6
-    ROcp17_56 = -(ROcp17_25*S6-C4*C6)
-    ROcp17_66 = -(ROcp17_35*S6-S4*C6)
-    OMcp17_25 = qd[5]*C4
-    OMcp17_35 = qd[5]*S4
-    OMcp17_16 = qd[4]+qd[6]*S5
-    OMcp17_26 = OMcp17_25+ROcp17_85*qd[6]
-    OMcp17_36 = OMcp17_35+ROcp17_95*qd[6]
-    OPcp17_16 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
-    OPcp17_26 = ROcp17_85*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp17_35*S5-ROcp17_95*qd[4])
-    OPcp17_36 = ROcp17_95*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp17_25*S5-ROcp17_85*qd[4])
+    ROcp17_45 = -S4*C5
+    ROcp17_55 = C4*C5
+    ROcp17_75 = S4*S5
+    ROcp17_85 = -C4*S5
+    ROcp17_16 = -(ROcp17_75*S6-C4*C6)
+    ROcp17_26 = -(ROcp17_85*S6-S4*C6)
+    ROcp17_36 = -C5*S6
+    ROcp17_76 = ROcp17_75*C6+C4*S6
+    ROcp17_86 = ROcp17_85*C6+S4*S6
+    ROcp17_96 = C5*C6
+    OMcp17_15 = qd[5]*C4
+    OMcp17_25 = qd[5]*S4
+    OMcp17_16 = OMcp17_15+ROcp17_45*qd[6]
+    OMcp17_26 = OMcp17_25+ROcp17_55*qd[6]
+    OMcp17_36 = qd[4]+qd[6]*S5
+    OPcp17_16 = ROcp17_45*qdd[6]+qdd[5]*C4-qd[4]*qd[5]*S4+qd[6]*(OMcp17_25*S5-ROcp17_55*qd[4])
+    OPcp17_26 = ROcp17_55*qdd[6]+qdd[5]*S4+qd[4]*qd[5]*C4-qd[6]*(OMcp17_15*S5-ROcp17_45*qd[4])
+    OPcp17_36 = qdd[4]+qdd[6]*S5+qd[5]*qd[6]*C5
 
 # = = Block_1_0_0_18_0_5 = = 
  
 # Sensor Kinematics 
 
 
-    ROcp17_416 = ROcp17_46*C16+S16*S5
-    ROcp17_516 = ROcp17_56*C16+ROcp17_85*S16
-    ROcp17_616 = ROcp17_66*C16+ROcp17_95*S16
-    ROcp17_716 = -(ROcp17_46*S16-C16*S5)
-    ROcp17_816 = -(ROcp17_56*S16-ROcp17_85*C16)
-    ROcp17_916 = -(ROcp17_66*S16-ROcp17_95*C16)
+    ROcp17_416 = ROcp17_45*C16+ROcp17_76*S16
+    ROcp17_516 = ROcp17_55*C16+ROcp17_86*S16
+    ROcp17_616 = ROcp17_96*S16+C16*S5
+    ROcp17_716 = -(ROcp17_45*S16-ROcp17_76*C16)
+    ROcp17_816 = -(ROcp17_55*S16-ROcp17_86*C16)
+    ROcp17_916 = ROcp17_96*C16-S16*S5
     ROcp17_417 = ROcp17_416*C17+ROcp17_716*S17
     ROcp17_517 = ROcp17_516*C17+ROcp17_816*S17
     ROcp17_617 = ROcp17_616*C17+ROcp17_916*S17
@@ -1523,9 +1523,9 @@ def sensor(sens, s, isens):
     ROcp17_718 = -(ROcp17_417*S18-ROcp17_717*C18)
     ROcp17_818 = -(ROcp17_517*S18-ROcp17_817*C18)
     ROcp17_918 = -(ROcp17_617*S18-ROcp17_917*C18)
-    RLcp17_116 = ROcp17_16*s.dpt[1,11]+ROcp17_46*s.dpt[2,11]+s.dpt[3,11]*S5
-    RLcp17_216 = ROcp17_26*s.dpt[1,11]+ROcp17_56*s.dpt[2,11]+ROcp17_85*s.dpt[3,11]
-    RLcp17_316 = ROcp17_36*s.dpt[1,11]+ROcp17_66*s.dpt[2,11]+ROcp17_95*s.dpt[3,11]
+    RLcp17_116 = ROcp17_16*s.dpt[1,11]+ROcp17_45*s.dpt[2,11]+ROcp17_76*s.dpt[3,11]
+    RLcp17_216 = ROcp17_26*s.dpt[1,11]+ROcp17_55*s.dpt[2,11]+ROcp17_86*s.dpt[3,11]
+    RLcp17_316 = ROcp17_36*s.dpt[1,11]+ROcp17_96*s.dpt[3,11]+s.dpt[2,11]*S5
     OMcp17_116 = OMcp17_16+ROcp17_16*qd[16]
     OMcp17_216 = OMcp17_26+ROcp17_26*qd[16]
     OMcp17_316 = OMcp17_36+ROcp17_36*qd[16]
@@ -1535,9 +1535,9 @@ def sensor(sens, s, isens):
     OPcp17_116 = OPcp17_16+ROcp17_16*qdd[16]+qd[16]*(OMcp17_26*ROcp17_36-OMcp17_36*ROcp17_26)
     OPcp17_216 = OPcp17_26+ROcp17_26*qdd[16]-qd[16]*(OMcp17_16*ROcp17_36-OMcp17_36*ROcp17_16)
     OPcp17_316 = OPcp17_36+ROcp17_36*qdd[16]+qd[16]*(OMcp17_16*ROcp17_26-OMcp17_26*ROcp17_16)
-    RLcp17_117 = ROcp17_416*s.dpt[2,27]
-    RLcp17_217 = ROcp17_516*s.dpt[2,27]
-    RLcp17_317 = ROcp17_616*s.dpt[2,27]
+    RLcp17_117 = ROcp17_416*s.dpt[2,30]
+    RLcp17_217 = ROcp17_516*s.dpt[2,30]
+    RLcp17_317 = ROcp17_616*s.dpt[2,30]
     OMcp17_117 = OMcp17_116+ROcp17_16*qd[17]
     OMcp17_217 = OMcp17_216+ROcp17_26*qd[17]
     OMcp17_317 = OMcp17_316+ROcp17_36*qd[17]
@@ -1547,9 +1547,9 @@ def sensor(sens, s, isens):
     OPcp17_117 = OPcp17_116+ROcp17_16*qdd[17]+qd[17]*(OMcp17_216*ROcp17_36-OMcp17_316*ROcp17_26)
     OPcp17_217 = OPcp17_216+ROcp17_26*qdd[17]-qd[17]*(OMcp17_116*ROcp17_36-OMcp17_316*ROcp17_16)
     OPcp17_317 = OPcp17_316+ROcp17_36*qdd[17]+qd[17]*(OMcp17_116*ROcp17_26-OMcp17_216*ROcp17_16)
-    RLcp17_118 = ROcp17_16*s.dpt[1,31]
-    RLcp17_218 = ROcp17_26*s.dpt[1,31]
-    RLcp17_318 = ROcp17_36*s.dpt[1,31]
+    RLcp17_118 = ROcp17_16*s.dpt[1,34]
+    RLcp17_218 = ROcp17_26*s.dpt[1,34]
+    RLcp17_318 = ROcp17_36*s.dpt[1,34]
     POcp17_118 = RLcp17_116+RLcp17_117+RLcp17_118+q[1]
     POcp17_218 = RLcp17_216+RLcp17_217+RLcp17_218+q[2]
     POcp17_318 = RLcp17_316+RLcp17_317+RLcp17_318+q[3]

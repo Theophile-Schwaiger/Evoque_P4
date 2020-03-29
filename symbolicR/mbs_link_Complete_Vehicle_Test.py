@@ -11,7 +11,7 @@
 #	1348 Louvain-la-Neuve 
 #	http://www.robotran.be// 
 #
-#	==> Generation Date : Mon Mar 16 18:21:55 2020
+#	==> Generation Date : Thu Mar 26 17:28:13 2020
 #
 #	==> Project name : Complete_Vehicle_Test
 #	==> using XML input file 
@@ -81,19 +81,19 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
  
 # Link Kinematics: Distance Z , Relative Velocity ZD 
 
-  RLlnk0_28 = s.dpt[2,13]*C7
-  RLlnk0_38 = s.dpt[2,13]*S7
-  RLlnk0_227 = -s.dpt[3,14]*S7
-  RLlnk0_327 = s.dpt[3,14]*C7
+  RLlnk0_28 = s.dpt[2,14]*C7
+  RLlnk0_38 = s.dpt[2,14]*S7
+  RLlnk0_227 = -s.dpt[3,16]*S7
+  RLlnk0_327 = s.dpt[3,16]*C7
 
 # = = Block_0_1_0_0_2_3 = = 
  
 # Link Kinematics: Distance Z , Relative Velocity ZD 
 
-  RLlnk2_211 = s.dpt[2,17]*C10
-  RLlnk2_311 = s.dpt[2,17]*S10
-  RLlnk2_229 = -s.dpt[3,18]*S10
-  RLlnk2_329 = s.dpt[3,18]*C10
+  RLlnk2_211 = s.dpt[2,19]*C10
+  RLlnk2_311 = s.dpt[2,19]*S10
+  RLlnk2_229 = -s.dpt[3,21]*S10
+  RLlnk2_329 = s.dpt[3,21]*C10
 
 # = = Block_0_1_0_0_3_4 = = 
  
@@ -104,11 +104,11 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
  
 # Link Kinematics: Distance Z , Relative Velocity ZD 
 
-  RLlnk5_214 = s.dpt[2,21]*C13
-  RLlnk5_314 = s.dpt[2,21]*S13
+  RLlnk5_214 = s.dpt[2,24]*C13
+  RLlnk5_314 = s.dpt[2,24]*S13
   OMlnk5_114 = qd[13]+qd[14]
-  RLlnk5_232 = -s.dpt[3,22]*S13p14
-  RLlnk5_332 = s.dpt[3,22]*C13p14
+  RLlnk5_232 = -s.dpt[3,25]*S13p14
+  RLlnk5_332 = s.dpt[3,25]*C13p14
 
 # = = Block_0_1_0_0_4_5 = = 
  
@@ -119,11 +119,11 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
  
 # Link Kinematics: Distance Z , Relative Velocity ZD 
 
-  RLlnk6_217 = s.dpt[2,27]*C16
-  RLlnk6_317 = s.dpt[2,27]*S16
+  RLlnk6_217 = s.dpt[2,30]*C16
+  RLlnk6_317 = s.dpt[2,30]*S16
   OMlnk6_117 = qd[16]+qd[17]
-  RLlnk6_233 = -s.dpt[3,30]*S16p17
-  RLlnk6_333 = s.dpt[3,30]*C16p17
+  RLlnk6_233 = -s.dpt[3,33]*S16p17
+  RLlnk6_333 = s.dpt[3,33]*C16p17
 
 # = = Block_0_1_0_1_1_1 = = 
  
@@ -163,7 +163,7 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
  
 # Link Kinematics: Distance Z , Relative Velocity ZD 
 
-  Plnk13 = s.dpt[1,22]-s.dpt[1,5]+s.dpt[1,9]
+  Plnk13 = s.dpt[1,25]-s.dpt[1,5]+s.dpt[1,9]
   Plnk23 = RLlnk5_214+RLlnk5_232-s.dpt[2,5]+s.dpt[2,9]
   Plnk33 = RLlnk5_314+RLlnk5_332-s.dpt[3,5]+s.dpt[3,9]
   Z3 = np.sqrt(Plnk13*Plnk13+Plnk23*Plnk23+Plnk33*Plnk33)
@@ -180,7 +180,7 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
  
 # Link Kinematics: Distance Z , Relative Velocity ZD 
 
-  Plnk14 = -(s.dpt[1,11]+s.dpt[1,30]-s.dpt[1,7])
+  Plnk14 = -(s.dpt[1,11]+s.dpt[1,33]-s.dpt[1,7])
   Plnk24 = -(RLlnk6_217+RLlnk6_233+s.dpt[2,11]-s.dpt[2,7])
   Plnk34 = -(RLlnk6_317+RLlnk6_333+s.dpt[3,11]-s.dpt[3,7])
   Z4 = np.sqrt(Plnk14*Plnk14+Plnk24*Plnk24+Plnk34*Plnk34)
@@ -211,8 +211,8 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
   frc[1,8] = s.frc[1,8]+fPlnk11
   frc[2,8] = s.frc[2,8]+fPlnk21
   frc[3,8] = s.frc[3,8]+fPlnk31
-  trq[1,8] = s.trq[1,8]-fPlnk21*(s.dpt[3,14]-s.l[3,8])
-  trq[2,8] = s.trq[2,8]+fPlnk11*(s.dpt[3,14]-s.l[3,8])
+  trq[1,8] = s.trq[1,8]-fPlnk21*(s.dpt[3,16]-s.l[3,8])
+  trq[2,8] = s.trq[2,8]+fPlnk11*(s.dpt[3,16]-s.l[3,8])
 
 # = = Block_0_1_0_2_3_1 = = 
  
@@ -232,8 +232,8 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
   frc[1,11] = s.frc[1,11]+fPlnk12
   frc[2,11] = s.frc[2,11]+fPlnk22
   frc[3,11] = s.frc[3,11]+fPlnk32
-  trq[1,11] = s.trq[1,11]-fPlnk22*(s.dpt[3,18]-s.l[3,11])
-  trq[2,11] = s.trq[2,11]+fPlnk12*(s.dpt[3,18]-s.l[3,11])
+  trq[1,11] = s.trq[1,11]-fPlnk22*(s.dpt[3,21]-s.l[3,11])
+  trq[2,11] = s.trq[2,11]+fPlnk12*(s.dpt[3,21]-s.l[3,11])
 
 # = = Block_0_1_0_2_4_1 = = 
  
@@ -262,9 +262,9 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
   frc[1,14] = s.frc[1,14]-fSlnk13
   frc[2,14] = s.frc[2,14]-fSlnk23
   frc[3,14] = s.frc[3,14]-fSlnk33
-  trq[1,14] = s.trq[1,14]+fSlnk23*s.dpt[3,22]
-  trq[2,14] = s.trq[2,14]-fSlnk13*s.dpt[3,22]+fSlnk33*(s.dpt[1,22]-s.l[1,14])
-  trq[3,14] = s.trq[3,14]-fSlnk23*(s.dpt[1,22]-s.l[1,14])
+  trq[1,14] = s.trq[1,14]+fSlnk23*s.dpt[3,25]
+  trq[2,14] = s.trq[2,14]-fSlnk13*s.dpt[3,25]+fSlnk33*(s.dpt[1,25]-s.l[1,14])
+  trq[3,14] = s.trq[3,14]-fSlnk23*(s.dpt[1,25]-s.l[1,14])
 
 # = = Block_0_1_0_2_5_1 = = 
  
@@ -290,9 +290,9 @@ def link(frc, trq, Flnk, Z, Zd, s, tsim):
   frc[1,17] = s.frc[1,17]+fPlnk14
   frc[2,17] = s.frc[2,17]+fPlnk24
   frc[3,17] = s.frc[3,17]+fPlnk34
-  trq[1,17] = s.trq[1,17]-fPlnk24*s.dpt[3,30]
-  trq[2,17] = s.trq[2,17]+fPlnk14*s.dpt[3,30]-fPlnk34*(s.dpt[1,30]-s.l[1,17])
-  trq[3,17] = s.trq[3,17]+fPlnk24*(s.dpt[1,30]-s.l[1,17])
+  trq[1,17] = s.trq[1,17]-fPlnk24*s.dpt[3,33]
+  trq[2,17] = s.trq[2,17]+fPlnk14*s.dpt[3,33]-fPlnk34*(s.dpt[1,33]-s.l[1,17])
+  trq[3,17] = s.trq[3,17]+fPlnk24*(s.dpt[1,33]-s.l[1,17])
 
 # = = Block_0_2_0_0_0_0 = = 
  

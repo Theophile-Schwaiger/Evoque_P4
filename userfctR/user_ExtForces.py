@@ -39,35 +39,138 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
     Mx=0.0
     My=0.0
     Mz=0.0
-
-    if ixF == mbs.extforce_id["ExtForce_0"] or ixF == mbs.extforce_id["ExtForce_1"] or ixF == mbs.extforce_id["ExtForce_2"] or ixF == mbs.extforce_id["ExtForce_3"]:
+    
+    
+    kroul = mbs.user_model['BAR']['kroul'] #N/degres ou N/rad
+    li = mbs.user_model['BAR']['li'] #m
+    lj = mbs.user_model['BAR']['lj'] #m
+    
+    kbad = kroul/((li + lj)**2) #N/m c est bizarre avec kroul
+    
+    
+    if ixF == mbs.extforce_id["ExtForce_0"]:
         e = PxF[3] - (RxF[2,2]*R0)
+#        print(tsim)
+#        print(mbs.sensors[0].P)
+#        print(mbs.sensors[1].P)
+#        print(mbs.sensors[2].P)
+#        print(mbs.sensors[3].P)
         #e = PxF[3] - R0
  
         ed = VxF[3]
         
+        diff = mbs.sensors[1].P[3]-mbs.sensors[0].P[3] #verifier que c est dans le bon sens la force
+        Fzbar = kbad * diff #N
+        
         if mbs.process == 2:
             
             if e < 0:
-                Fz = Kp*abs(e) + Dp*abs(ed)
+                Fz = Kp*abs(e) + Dp*abs(ed) + Fzbar
             if e > 0:
             
-                Fz = -(Kp*abs(e) + Dp*abs(ed))
+                Fz = -(Kp*abs(e) + Dp*abs(ed)) + Fzbar
         
         else:
             
             if e < 0:
                 
                 #Fz = -Kp*e - Dp*ed 
-                Fz = -Kp*e + Dp*abs(ed)
+                Fz = -Kp*e + Dp*abs(ed) + Fzbar
 
                 
             else:
                 
-                Fz = 0
+                Fz = 0 + Fzbar
+                
+    if ixF == mbs.extforce_id["ExtForce_1"]:
+        e = PxF[3] - (RxF[2,2]*R0)
+        #e = PxF[3] - R0
+ 
+        ed = VxF[3]
+        
+        diff = mbs.sensors[1].P[3]-mbs.sensors[0].P[3] #verifier que c est dans le bon sens la force
+        Fzbar = kbad * diff #N
+        
+        if mbs.process == 2:
+            
+            if e < 0:
+                Fz = Kp*abs(e) + Dp*abs(ed) + Fzbar
+            if e > 0:
+            
+                Fz = -(Kp*abs(e) + Dp*abs(ed)) + Fzbar
+        
+        else:
+            
+            if e < 0:
+                
+                #Fz = -Kp*e - Dp*ed 
+                Fz = -Kp*e + Dp*abs(ed) + Fzbar
+
+                
+            else:
+                
+                Fz = 0 + Fzbar
+                
+    if ixF == mbs.extforce_id["ExtForce_2"]:
+        e = PxF[3] - (RxF[2,2]*R0)
+        #e = PxF[3] - R0
+ 
+        ed = VxF[3]
+        
+        diff = mbs.sensors[1].P[3]-mbs.sensors[0].P[3] #verifier que c est dans le bon sens la force
+        Fzbar = kbad * diff #N
+        
+        if mbs.process == 2:
+            
+            if e < 0:
+                Fz = Kp*abs(e) + Dp*abs(ed) + Fzbar
+            if e > 0:
+            
+                Fz = -(Kp*abs(e) + Dp*abs(ed)) + Fzbar
+        
+        else:
+            
+            if e < 0:
+                
+                #Fz = -Kp*e - Dp*ed 
+                Fz = -Kp*e + Dp*abs(ed) + Fzbar
+
+                
+            else:
+                
+                Fz = 0 + Fzbar
+                
+    if ixF == mbs.extforce_id["ExtForce_3"]:
+        e = PxF[3] - (RxF[2,2]*R0)
+        #e = PxF[3] - R0
+ 
+        ed = VxF[3]
+        
+        diff = mbs.sensors[1].P[3]-mbs.sensors[0].P[3] #verifier que c est dans le bon sens la force
+        Fzbar = kbad * diff #N
+        
+        if mbs.process == 2:
+            
+            if e < 0:
+                Fz = Kp*abs(e) + Dp*abs(ed) + Fzbar
+            if e > 0:
+            
+                Fz = -(Kp*abs(e) + Dp*abs(ed)) + Fzbar
+        
+        else:
+            
+            if e < 0:
+                
+                #Fz = -Kp*e - Dp*ed 
+                Fz = -Kp*e + Dp*abs(ed) + Fzbar
+
+                
+            else:
+                
+                Fz = 0 + Fzbar
                 
     
-    idpt=mbs.xfidpt[ixF]
+    #idpt=mbs.xfidpt[ixF]
     #dxF = mbs.dpt[1:,idpt]
     dxF=np.array([0,0,-(PxF[3]/RxF[2,2])])
     Swr=np.zeros(9+1)

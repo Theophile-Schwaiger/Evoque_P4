@@ -19,6 +19,6 @@ def user_DrivenJoints(mbs,tsim):
     #          coordinate (mbs.q0) and velocity (mbs.qd0). 
     # mbs.qdd[5] = 2
     # mbs.qd[5]  = mbs.qd0[5] + mbs.qdd[5]*tsim
-    # mbs.q[5]   = mbs.q0[5]  + mbs.qd0[5]*tsim + 0.5 * mbs.qdd[5]*tsim*tsim
+    mbs.q[8]   = 0#mbs.q0[5]  + mbs.qd0[5]*tsim + 0.5 * mbs.qdd[5]*tsim*tsim
     
     return

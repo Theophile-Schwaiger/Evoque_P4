@@ -7,6 +7,8 @@
 #
 #Copyright 2019 Universite Catholique de Louvain
 
+import MBsysPy as Robotran
+
 def user_dirdyn_init(mbs, dd):
     # Example: Creating and storing a sensor in mbs then create a list to store
     #          the vertical velocity of the sensor. Two new fields are added to
@@ -16,6 +18,9 @@ def user_dirdyn_init(mbs, dd):
     #
     # mbs.my_sensor = Robotran.MbsSensor(mbs)
     # mbs.my_sensor_v = []
+    mbs.sensors.append(Robotran.MbsSensor(mbs, 1))
+    mbs.sensors.append(Robotran.MbsSensor(mbs, 2))
+    mbs.sensors.append(Robotran.MbsSensor(mbs, 3))
     
     
     return
@@ -26,6 +31,11 @@ def user_dirdyn_loop(mbs, dd):
     #
     # mbs.mbs_sensor(mbs.my_sensor, mbs, 1)
     # mbs.my_sensor_v.append(mbs.my_sensor.V[3])
+    
+    mbs.sensors[0].sensor(1)
+    mbs.sensors[1].sensor(2)
+    mbs.sensors[2].sensor(3)
+    mbs.sensors[3].sensor(4)
 
     
     return
