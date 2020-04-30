@@ -18,41 +18,6 @@ def user_LinkForces(Z,Zd,mbs,tsim,identity):
     
     """
     
-    if identity == mbs.link_id['Link_AVG']:
-        
-        
-        Kr = mbs.user_model['Link_AVG']['K']
-        Da  = mbs.user_model['Link_AVG']['D']
-        Z0 = mbs.user_model['Link_AVG']['L0']
-        Flink= (Kr*(Z-Z0) + Da*Zd)
-        
-    if identity == mbs.link_id['Link_AVD']:
-        
-        
-        Kr = mbs.user_model['Link_AVD']['K']
-        Da  = mbs.user_model['Link_AVD']['D']
-        Z0 = mbs.user_model['Link_AVD']['L0']
-        Flink= (Kr*(Z-Z0) + Da*Zd)
-        
-    if identity == mbs.link_id['Link_ARG']:
-        
-        
-        Kr = mbs.user_model['Link_AR']['K']
-        Da  = mbs.user_model['Link_AR']['D']
-        Z0 = mbs.user_model['Link_AR']['L0']
-        Flink= (Kr*(Z-Z0) + Da*Zd)
-        
-    if identity == mbs.link_id['Link_ARD']:
-        
-        
-        Kr = mbs.user_model['Link_AR']['K']
-        Da  = mbs.user_model['Link_AR']['D']
-        Z0 = mbs.user_model['Link_AR']['L0']
-        Flink= (Kr*(Z-Z0) + Da*Zd)
-    
-    # Example: linear spring
-    # k = 1000 #N/m
-    # Z0= 0.1  #m
-    # Flink = k*(Z-Z0)
+    Flink = 0
     
     return Flink
