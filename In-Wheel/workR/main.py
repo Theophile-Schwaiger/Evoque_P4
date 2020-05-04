@@ -53,18 +53,22 @@ mbs_part.run()
 # Static Equilibrium
 #==============================================================================
 
-mbs_data.process = 2
-mbs_equil = Robotran.MbsEquil(mbs_data)
-mbs_equil.set_options(save_anim = 1, senstol = 1e-4, compute_uxd = 0,resfilename = "equil1",itermax = 100)
-mbs_equil.run()
+#mbs_data.process = 2
+#mbs_equil = Robotran.MbsEquil(mbs_data)
+#mbs_equil.set_options(save_anim = 1, senstol = 1e-4, compute_uxd = 0,resfilename = "equil1",itermax = 100)
+#mbs_equil.run()
 
 #==============================================================================
 # Direct Dynamics
 #==============================================================================
-mbs_data.process = 3
-mbs_dirdyn = Robotran.MbsDirdyn(mbs_data)
-mbs_dirdyn.set_options(dt0 = 1e-3, tf = 3.0, save2file = 1)
-mbs_dirdyn.run()
+running=False # pour pouvoir modifier les plots
+
+if running :
+    
+    mbs_data.process = 4      ########## 3-Bosse    4-Banc  ############
+    mbs_dirdyn = Robotran.MbsDirdyn(mbs_data)
+    mbs_dirdyn.set_options(dt0 = 1e-3, tf = 4.0, save2file = 1)
+    mbs_dirdyn.run()
 
 #==============================================================================
 
@@ -73,27 +77,27 @@ sol = np.loadtxt('../resultsR/dirdyn_q.res')
 q = sol[:,3]
 t = sol[:,0]
 
-fig = plt.figure(figsize=(13,6.5))
+fig = plt.figure(figsize=(9,6.5))
 plt.title('Evolution de la hauteur du chassis',fontsize = 16)
 plt.plot(t,q)
-plt.axhline(y= q[-1],dashes = (3,2))
-i = np.where(q == np.min(q))
+#plt.axhline(y= q[-1],dashes = (3,2))
+#i = np.where(q == np.min(q))
 
-anox = sol[i[0][0],0]
+#anox = sol[i[0][0],0]
 
-anoy = np.min(q)
+#anoy = np.min(q)
 
-plt.axhline(y= anoy,xmin = anox/t[-1] ,xmax = (anox+ (0.1*t[-1]))/t[-1] , color = 'black', linewidth = 1)
+#plt.axhline(y= anoy,xmin = anox/t[-1] ,xmax = (anox+ (0.1*t[-1]))/t[-1] , color = 'black', linewidth = 1)
 
-plt.margins(x=0)
-plt.ylim(bottom=0)
+#plt.margins(x=0)
+#plt.ylim(bottom=0)
 
-plt.xlabel('Temps [s]',fontsize = 13)
-plt.ylabel('Hauteur du chassis [m]',fontsize = 13)
+#plt.xlabel('Temps [s]',fontsize = 13)
+#plt.ylabel('Hauteur du chassis [m]',fontsize = 13)
 
-plt.annotate("{:6.5f}".format(q[-1]), xy=(t[-1], q[-1]), xytext=(t[-1]*0.8, q[-1] +0.01),fontsize=14)
+#plt.annotate("{:6.5f}".format(q[-1]), xy=(t[-1], q[-1]), xytext=(t[-1]*0.8, q[-1] +0.01),fontsize=14)
 
-plt.annotate("(%4.3f,%6.5f)" % (anox,anoy), xy=(anox,anoy), xytext=(anox + (0.1*t[-1]), anoy), fontsize=14)
+#plt.annotate("(%4.3f,%6.5f)" % (anox,anoy), xy=(anox,anoy), xytext=(anox + (0.1*t[-1]), anoy), fontsize=14)
 plt.show
 #plt.savefig('Hauteur_Chassis.pdf',bbox_inches = "tight",dpi=fig.dpi)
 
