@@ -55,7 +55,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
     My=0.0
     Mz=0.0
 
-    if mbs.process == 2:
+    if mbs.process == 2: #equilibre
         
         if ixF == mbs.extforce_id["ExtForce_0"] or ixF == mbs.extforce_id["ExtForce_1"] or ixF == mbs.extforce_id["ExtForce_2"] or ixF == mbs.extforce_id["ExtForce_3"]:
             Pw = PxF
@@ -70,7 +70,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
             pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(Pw,RxF,Vw,OMw,R0)
             
             #e = (RxF[2,2]*R0) - PxF[3]
-            e = pen - mbs.q[42]
+            e = pen
             
             ed = Vmct[3]
 
@@ -87,7 +87,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
 
 
 
-    if mbs.process == 3:
+    if mbs.process == 4: ############# Banc d'essai #####################################
     
         if ixF == mbs.extforce_id["ExtForce_0"] or ixF == mbs.extforce_id["ExtForce_1"] or ixF == mbs.extforce_id["ExtForce_2"] or ixF == mbs.extforce_id["ExtForce_3"]:
             Pw = PxF
@@ -101,7 +101,116 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
 
             pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(Pw,RxF,Vw,OMw,R0)
             
-            e =  pen # pen = (RxF[2,2]*R0) - PxF[3] 
+            e =  pen  + mbs.q[66]# pen = (RxF[2,2]*R0) - PxF[3] 
+        
+            #ed = VxF[3]
+            ed = Vmct[3]
+            
+            if e > 0:
+                
+                if mbs.qd0[1] != 0.0:
+                    
+                    Fz = Kp*e - Dp*ed
+                    
+                    Fwhl = np.array([0,Fx,Fy,Fz]) 
+            
+                    Mwhl = np.array([0,Mx,My,Mz]) 
+                
+                    mbs_tgc.tgc_bakker_contact(Fwhl,Mwhl,angslip,angcamb,slip)
+                
+                    Rt_ground = np.reshape(Rt_ground,(-1,4))
+                
+                    F = Fwhl[1:]
+                    #print(F)
+                    F = Rt_ground[1:,1:] @ F
+                
+                    M = Mwhl[1:]
+                    M = Rt_ground[1:,1:] @ M
+                    
+                    Fx = F[0]
+                    Fy = F[1]
+                    #Fz = F[2]
+    
+                    Mx = M[0]
+                    My = M[1]
+                    Mz = M[2]
+                                        
+                else:
+                        
+                    Fz = Kp*e - Dp*ed
+                                
+            else:
+                
+                Fz = 0
+
+    if mbs.process == 3: ############# Bosse ########################
+    
+        if ixF == mbs.extforce_id["ExtForce_0"] or ixF == mbs.extforce_id["ExtForce_3"]:
+            Pw = PxF
+            Pw[0] = 3.0
+
+            Vw = VxF
+            Vw[0] = 3.0
+
+            OMw = OMxF
+            OMw[0] = 3.0
+
+            pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(Pw,RxF,Vw,OMw,R0)
+            
+            e =  pen + mbs.q[66] # pen = (RxF[2,2]*R0) - PxF[3] 
+        
+            #ed = VxF[3]
+            ed = Vmct[3]
+            
+            if e > 0:
+                
+                if mbs.qd0[1] != 0.0:
+                    
+                    Fz = Kp*e - Dp*ed
+                    
+                    Fwhl = np.array([0,Fx,Fy,Fz]) 
+            
+                    Mwhl = np.array([0,Mx,My,Mz]) 
+                
+                    mbs_tgc.tgc_bakker_contact(Fwhl,Mwhl,angslip,angcamb,slip)
+                
+                    Rt_ground = np.reshape(Rt_ground,(-1,4))
+                
+                    F = Fwhl[1:]
+                    #print(F)
+                    F = Rt_ground[1:,1:] @ F
+                
+                    M = Mwhl[1:]
+                    M = Rt_ground[1:,1:] @ M
+                    
+                    Fx = F[0]
+                    Fy = F[1]
+                    #Fz = F[2]
+    
+                    Mx = M[0]
+                    My = M[1]
+                    Mz = M[2]
+                                        
+                else:
+                        
+                    Fz = Kp*e - Dp*ed
+                                
+            else:
+                
+                Fz = 0
+        if ixF == mbs.extforce_id["ExtForce_1"] or ixF == mbs.extforce_id["ExtForce_2"]:
+            Pw = PxF
+            Pw[0] = 3.0
+
+            Vw = VxF
+            Vw[0] = 3.0
+
+            OMw = OMxF
+            OMw[0] = 3.0
+
+            pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(Pw,RxF,Vw,OMw,R0)
+            
+            e =  pen + mbs.q[67] # pen = (RxF[2,2]*R0) - PxF[3] 
         
             #ed = VxF[3]
             ed = Vmct[3]
@@ -144,7 +253,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
                 Fz = 0
 
         
-        Swr=np.zeros(9+1)
-        Swr[1:]=np.r_[Fx,Fy,Fz,Mx,My,Mz,dxF[1:]]
+    Swr=np.zeros(9+1)
+    Swr[1:]=np.r_[Fx,Fy,Fz,Mx,My,Mz,dxF[1:]]
         
     return Swr

@@ -7,6 +7,7 @@
 #
 #Copyright 2019 Universite Catholique de Louvain
 from math import sin,cos,pi
+import numpy as np
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 def sweep(t):
@@ -28,7 +29,7 @@ def sweep(t):
     t1=4 #a accorder avec le temps de simulation dans main.py
     f0=0.1
     f1=100
-    Amax=0.025 # est-ce trop ?
+    Amax=0.025  # est-ce trop ?
     w=(f1-f0)/(t1-t0)
     arg=2 * pi * (f0 + w * (t / 2)) * t
     
@@ -85,22 +86,73 @@ def user_DrivenJoints(mbs,tsim):
 ##=============================================================================
 ## Banc d'essai
 ##=============================================================================
-
-    id_Bosse = mbs.joint_id['Joint_18']
     
-    if tsim <= 1:
+    
+    if mbs.process == 4 : ##### Banc ##########
+        id_Bosse = mbs.joint_id['Joint_7']
+    
+        if tsim <= 1:
         
-        mbs.qdd[id_Bosse] = 0
-        mbs.qd[id_Bosse]  = 0
-        mbs.q[id_Bosse]   = 0
+            mbs.qdd[id_Bosse] = 0
+            mbs.qd[id_Bosse]  = 0
+            mbs.q[id_Bosse]   = 0
         
-    if tsim > 1 :
+        if tsim > 1 :
         
-        tab=sweep(tsim)
+            tab=sweep(tsim)
                
-        mbs.qdd[id_Bosse] = tab[2]
-        mbs.qd[id_Bosse]  = tab[1]
-        mbs.q[id_Bosse]   = tab[0]
+            mbs.qdd[id_Bosse] = tab[2]
+            mbs.qd[id_Bosse]  = tab[1]
+            mbs.q[id_Bosse]   = tab[0]
+    
+
+################################################################################## debut bosses
+################################################################################## debut bosse 1
+    else :
+        
+        id_bosse1 = mbs.joint_id['Joint_7']
+        
+        if tsim <= 1:
+            
+            mbs.qdd[id_bosse1] = 0
+            mbs.qd[id_bosse1]  = 0
+            mbs.q[id_bosse1]   = 0
+            
+        if tsim > 1.0 and tsim <= (1+(2/7)): #en fait on laisse pile l intervalle de temps pour une demi periode pour avoir juste une bosse et pas un trou aussi
+                   
+            mbs.qdd[id_bosse1] = 7*7*pi*pi*cos(tsim*pi*7)/10
+            mbs.qd[id_bosse1]  = -7*pi*sin(tsim*pi*7)/10
+            mbs.q[id_bosse1]   = (cos(tsim*pi*7) + 1)/10     # amplitude d un sinus c est 2 puis divise par 10 donc 20 cm de hauteur de bosse
+    
+            
+        if tsim > (1+(2/7)):
+                            
+                mbs.qdd[id_bosse1] = 0
+                mbs.qd[id_bosse1]  = 0
+                mbs.q[id_bosse1]   = 0
+################################################################################## debut bosse 2
+        id_bosse2 = mbs.joint_id['Joint_30']
+        retard = (2.681/14) #le retard en secondes de combien on va retarder la bosse numero 2 pour qu elle atteigne les roues arrieres en meme endroit que la bosse 1 atteint les roues avants
+        #print(retard)
+        
+        if tsim <= (1.0 + retard):
+            
+            mbs.qdd[id_bosse2] = 0
+            mbs.qd[id_bosse2]  = 0
+            mbs.q[id_bosse2]   = 0
+            
+        if tsim > (1.0 + retard) and tsim <= ((1+(2/7)) + retard):
+                   
+            mbs.qdd[id_bosse2] = 7*7*pi*pi*cos((tsim-retard)*pi*7)/10
+            mbs.qd[id_bosse2]  = -7*pi*sin((tsim-retard)*pi*7)/10
+            mbs.q[id_bosse2]   = (cos((tsim-retard)*pi*7) + 1)/10     # amplitude d un sinus c est 2 puis divise par 10 donc 20 cm de hauteur de bosse
+    
+            
+        if tsim > ((1+(2/7)) + retard):
+                            
+                mbs.qdd[id_bosse2] = 0
+                mbs.qd[id_bosse2]  = 0
+                mbs.q[id_bosse2]   = 0
    
 ##=============================================================================
 ## Prise de virage

@@ -64,18 +64,6 @@ def user_JointForces(mbs,tsim):
 ## Roues
 ##==============================================================================
      
-    id_AVG = mbs.joint_id['Roue_AVG']
-    id_AVD = mbs.joint_id['Roue_AVD']
-    id_ARG = mbs.joint_id['Roue_ARG']
-    id_ARD = mbs.joint_id['Roue_ARD']
-    
-    
-    
-    if mbs.qd0[1] != 0.0:
-    
-        for i in [id_AVG,id_AVD,id_ARG,id_ARD]:
-        
-            mbs.Qq[i] = 5
 
 
 ############# IMPLEMENTATION PID ###############
