@@ -76,6 +76,27 @@ def user_JointForces(mbs,tsim):
         for i in [id_AVG,id_AVD,id_ARG,id_ARD]:
         
             mbs.Qq[i] = 5
+
+
+############# IMPLEMENTATION PID ###############
+
+    id_AVG = mbs.joint_id['Roue_AVG']
+    id_AVD = mbs.joint_id['Roue_AVD']
+    id_ARG = mbs.joint_id['Roue_ARG']
+    id_ARD = mbs.joint_id['Roue_ARD']
+
+    u = [id_AVG, id_AVD, id_ARG, id_ARD]  # Couple d'entree des roues
+    kp = 30  # constante du PID a determiner experimentalement
+    yref = 10  # vitesse voulue [m/s]
+    y = mbs.qd[1]  # vitesse prise au chassis
+
+
+    # u=kp*(yref-y)
+
+    for i in u:
+        mbs.Qq[i] = kp*(yref-y)
+
+###################################################
       
 ##==============================================================================
 ## Direction

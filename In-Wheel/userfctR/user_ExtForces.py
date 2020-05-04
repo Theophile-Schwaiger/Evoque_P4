@@ -70,7 +70,7 @@ def user_ExtForces(PxF,RxF,VxF,OMxF,AxF,OMPxF,mbs,tsim,ixF):
             pen,rz,angslip,angcamb,slip,Pct,Vmct,Rt_ground,dxF = mbs_tgc.tgc_car_kine_wheel(Pw,RxF,Vw,OMw,R0)
             
             #e = (RxF[2,2]*R0) - PxF[3]
-            e = pen
+            e = pen - mbs.q[42]
             
             ed = Vmct[3]
 

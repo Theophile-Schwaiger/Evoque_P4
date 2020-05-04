@@ -7,6 +7,44 @@
 #
 #Copyright 2019 Universite Catholique de Louvain
 from math import sin,cos,pi
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+def sweep(t):
+    """ Compute the value of a force sweep function at the given time.
+    The sweep function has a sinusoidal shape with constant amplitude
+    and a varying frequency. This function enables to consider linear
+    variation of the frequency between f0 and f1 defined at time t0 and t1.
+
+	:param t: the time instant when to compute the function.
+	:param t0: the time instant when to specify f0.
+	:param f0: the frequency at time t0.
+	:param t1: the time instant when to specify f1.
+	:param f1: the frequency at time t1.
+	:param Fmax: the semi-amplitude of the function.
+
+	:return Fext: the value of the sweep function.
+    """
+    t0=1
+    t1=4 #a accorder avec le temps de simulation dans main.py
+    f0=0.1
+    f1=100
+    Amax=0.025 # est-ce trop ?
+    w=(f1-f0)/(t1-t0)
+    arg=2 * pi * (f0 + w * (t / 2)) * t
+    
+    if t<t0 :
+        Pertudd=0
+        Pertud=0
+        Pertu=0
+
+    else :
+        Pertudd= 2*pi*Amax*w * cos(arg) - 4*pi*pi *Amax*(f0 + w *t)*(f0 + w *t) * sin(arg)#-4*pi*pi*sin(2*pi*t)/20
+        Pertud= 2 * pi * Amax * (f0 + w *t) *cos(arg) #2*pi*cos(2*pi*t)/20
+        Pertu = (Amax * sin(arg))+Amax  #sin(2*pi*t)/20 +(1/20) 
+        #Amax * sin(2 * pi * (f0 + ((f1 - f0) / (t1 - t0)) * (t / 2)) * t)
+    
+    return np.array([Pertu, Pertud, Pertudd])
+
 def user_DrivenJoints(mbs,tsim):
     """ Set the values of the driven joints directly in the mbs structure.
 
@@ -45,26 +83,43 @@ def user_DrivenJoints(mbs,tsim):
 #        mbs.q[1]   = 10.0 * tsim * tsim
 
 ##=============================================================================
+## Banc d'essai
+##=============================================================================
 
+    id_Bosse = mbs.joint_id['Joint_18']
+    
+    if tsim <= 1:
+        
+        mbs.qdd[id_Bosse] = 0
+        mbs.qd[id_Bosse]  = 0
+        mbs.q[id_Bosse]   = 0
+        
+    if tsim > 1 :
+        
+        tab=sweep(tsim)
+               
+        mbs.qdd[id_Bosse] = tab[2]
+        mbs.qd[id_Bosse]  = tab[1]
+        mbs.q[id_Bosse]   = tab[0]
    
 ##=============================================================================
 ## Prise de virage
 ##=============================================================================
 
-    if mbs.qd0[1] != 0.0:
-
-        a = -0.03
-        b = 3.0
-    
-        if tsim > 0.2 and tsim < 2.3:
-        
-            mbs.qdd[id_Crem] = -a*b*b*sin(b*(tsim -0.2)+pi)
-            mbs.qd[id_Crem]  = a*b*cos(b*(tsim -0.2)+pi)
-            mbs.q[id_Crem]   = a*sin(b*(tsim -0.2)+pi)
-        else:
-            mbs.qdd[id_Crem] = 0
-            mbs.qd[id_Crem]  = 0
-            mbs.q[id_Crem]   = 0
+#    if mbs.qd0[1] != 0.0:
+#
+ #       a = -0.03
+  #      b = 3.0
+   # 
+   #     if tsim > 0.2 and tsim < 2.3:
+   #     
+   #         mbs.qdd[id_Crem] = -a*b*b*sin(b*(tsim -0.2)+pi)
+   #         mbs.qd[id_Crem]  = a*b*cos(b*(tsim -0.2)+pi)
+   #         mbs.q[id_Crem]   = a*sin(b*(tsim -0.2)+pi)
+   #     else:
+   #         mbs.qdd[id_Crem] = 0
+   #         mbs.qd[id_Crem]  = 0
+   #         mbs.q[id_Crem]   = 0
     
 
 #    c = 0.01
